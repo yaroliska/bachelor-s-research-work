@@ -9,13 +9,11 @@ import javax.persistence.Id;
 
 @Data
 @Entity
-public class Arrow {
+public class Station {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    Double arrow_x_coordinate;
-    Double arrow_y_coordinate;
-    Integer arrow_number;
-    String arrow_type;
+    String name;
+    String description;
 }
