@@ -1,4 +1,5 @@
 INSERT INTO station (name, description) VALUES ('Белозерки', 'Самая преступная станция');
+INSERT INTO traffic_light_type (name) VALUES ('входной');
 
 INSERT INTO department (number) VALUES ('6412');
 INSERT INTO department (number) VALUES ('6413');
