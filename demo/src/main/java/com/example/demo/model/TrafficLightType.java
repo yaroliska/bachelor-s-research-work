@@ -16,4 +16,5 @@ public class TrafficLightType {
     Long id;
 
     String name;
+    //количество сигналов
 }
