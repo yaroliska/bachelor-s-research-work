@@ -1,6 +1,10 @@
 INSERT INTO park (name) VALUES ('Сортировочный парк');
 INSERT INTO park (name) VALUES ('Приемо-отправочный парк');
 
+INSERT INTO path (number,x_begin,y_begin,x_end,y_end, park_id) VALUES (1,0,5,40,5,1);
+INSERT INTO path (number,x_begin,y_begin,x_end,y_end, park_id) VALUES (2,0,-5,40,-5,1);
+INSERT INTO path (number,x_begin,y_begin,x_end,y_end, park_id) VALUES (3,0,10,40,10,1);
+
 INSERT INTO station (name, description) VALUES ('Белозерки', 'Самая преступная станция');
 INSERT INTO station (name, description) VALUES ('Марьино', 'Самая хорошая станция');
 INSERT INTO station (name, description) VALUES ('Кинель', 'Сортировочная станция');
@@ -10,9 +14,8 @@ INSERT INTO traffic_light_type (name) VALUES ('выходной');
 INSERT INTO traffic_light_type (name) VALUES ('маршрутный');
 INSERT INTO traffic_light_type (name) VALUES ('проходной');
 
-INSERT INTO traffic_light (x,y,traffic_light_type_id) VALUES (10,10,1);
-INSERT INTO traffic_light (x,y,traffic_light_type_id) VALUES (10,10,1);
-
+INSERT INTO traffic_light (x,y,traffic_light_type_id, path_id) VALUES (10,10,1,1);
+INSERT INTO traffic_light (x,y,traffic_light_type_id,path_id) VALUES (10,10,1,2);
 
 
 INSERT INTO department (number) VALUES ('6412');

@@ -6,15 +6,17 @@ import javax.persistence.*;
 
 @Data
 @Entity
-public class TrafficLight {
+public class Path {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    Double x;
-    Double y;
+    Integer number;
+    Double xBegin;
+    Double yBegin;
+    Double xEnd;
+    Double yEnd;
+
     @ManyToOne
-    TrafficLightType trafficLightType;
-    @ManyToOne
-    Path path;
+    Park park;
 }
