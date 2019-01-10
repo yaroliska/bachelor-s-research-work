@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.model.Arrow;
 import com.example.demo.model.ArrowType;
+import com.example.demo.model.Path;
 import com.example.demo.repository.ArrowRepository;
 import com.example.demo.repository.ArrowTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,17 @@ public class ArrowController {
     @GetMapping
     @CrossOrigin("*")
     public List<Arrow> getArrow() {
-        return arrowRepository.findAll();
+        List<Arrow> ars = arrowRepository.findAll();
+        for(Arrow ar : ars){
+            for(Path path : ar.getPaths()){
+                path.setArrows(null);
+            }
+        }
+
+//        Path p = ars.get(0).getPaths().get(0);
+//        long pn = p.getId();
+//        System.out.println("vot");
+        return ars;//arrowRepository.findAll();
     }
 
     @PostMapping

@@ -24,7 +24,10 @@ INSERT INTO park (name) VALUES ('Приемо-отправочный парк');
 INSERT INTO path (number,x_begin,y_begin,x_end,y_end, park_id) VALUES (1,0,5,40,5,1);
 INSERT INTO path (number,x_begin,y_begin,x_end,y_end, park_id) VALUES (2,0,-5,40,-5,1);
 INSERT INTO path (number,x_begin,y_begin,x_end,y_end, park_id) VALUES (3,0,10,40,10,1);
+INSERT INTO path (number,x_begin,y_begin,x_end,y_end, park_id) VALUES (4,20,5,30,10,1);
 
+INSERT INTO arrow_path(arrow_id,path_id) VALUES (1,1);
+INSERT INTO arrow_path(arrow_id,path_id) VALUES (1,4);
 
 INSERT INTO path_version (number,x_begin,y_begin,x_end,y_end,park_id,path_id,global_version_id) VALUES (1,0,5,40,5,1,1,1);
 INSERT INTO path_version (number,x_begin,y_begin,x_end,y_end,park_id,path_id,global_version_id) VALUES (1,0,-5,40,5,1,2,1);
