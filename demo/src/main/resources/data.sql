@@ -3,6 +3,7 @@ INSERT INTO station (name, description) VALUES ('Марьино', 'Самая х
 INSERT INTO station (name, description) VALUES ('Кинель', 'Сортировочная станция');
 
 INSERT INTO global_version (creator,date,description, station_id) VALUES ('Вася', TO_DATE('14.12.2018', 'DD/MM/YYYY'),'Первая версия путевого развития', 1);
+INSERT INTO global_version (creator,date,description, station_id) VALUES ('Вася', TO_DATE('15.12.2018', 'DD/MM/YYYY'),'Исправлен съезд', 1);
 
 INSERT INTO arrow_type (name) VALUES ('Симметричный тройной');
 INSERT INTO arrow_type (name) VALUES ('Несимметричный односторонний');
@@ -11,6 +12,11 @@ INSERT INTO arrow_type (name) VALUES ('Перекрестный одиночны
 
 INSERT INTO arrow (x,y,arrow_type_id) VALUES (20,5,2);
 INSERT INTO arrow (x,y,arrow_type_id) VALUES (30,10,3);
+
+INSERT INTO arrow_version (x,y,arrow_id, global_version_id, arrow_type_id) VALUES (20,5,1,1,2);
+INSERT INTO arrow_version (x,y,arrow_id, global_version_id, arrow_type_id) VALUES (30,10,2,1,3);
+INSERT INTO arrow_version (x,y,arrow_id, global_version_id, arrow_type_id) VALUES (10,5,1,2,2);
+INSERT INTO arrow_version (x,y,arrow_id, global_version_id, arrow_type_id) VALUES (20,10,2,2,2);
 
 INSERT INTO park (name) VALUES ('Сортировочный парк');
 INSERT INTO park (name) VALUES ('Приемо-отправочный парк');
