@@ -4,6 +4,11 @@ INSERT INTO station (name, description) VALUES ('Кинель', 'Сортиро�
 
 INSERT INTO global_version (creator,date,description, station_id) VALUES ('Вася', TO_DATE('14.12.2018', 'DD/MM/YYYY'),'Первая версия путевого развития', 1);
 
+INSERT INTO arrow_type (name) VALUES ('Симметричный тройной');
+INSERT INTO arrow_type (name) VALUES ('Несимметричный односторонний');
+INSERT INTO arrow_type (name) VALUES ('Несимметричный разносторонний');
+INSERT INTO arrow_type (name) VALUES ('Перекрестный одиночный');
+
 INSERT INTO park (name) VALUES ('Сортировочный парк');
 INSERT INTO park (name) VALUES ('Приемо-отправочный парк');
 
