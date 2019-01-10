@@ -9,6 +9,9 @@ INSERT INTO arrow_type (name) VALUES ('Несимметричный одност
 INSERT INTO arrow_type (name) VALUES ('Несимметричный разносторонний');
 INSERT INTO arrow_type (name) VALUES ('Перекрестный одиночный');
 
+INSERT INTO arrow (x,y,arrow_type_id) VALUES (20,5,2);
+INSERT INTO arrow (x,y,arrow_type_id) VALUES (30,10,3);
+
 INSERT INTO park (name) VALUES ('Сортировочный парк');
 INSERT INTO park (name) VALUES ('Приемо-отправочный парк');
 
