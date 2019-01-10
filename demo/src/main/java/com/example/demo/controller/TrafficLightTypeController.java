@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 @RestController
-@RequestMapping("/api/light_traffic_type")
+@RequestMapping("/api/traffic_light_type")
 @CrossOrigin("*")
 public class TrafficLightTypeController {
     @Autowired
