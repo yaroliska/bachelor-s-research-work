@@ -11,8 +11,10 @@ public class TrafficLightVersion {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    //ссылка на светофор
+    @ManyToOne
+    TrafficLight trafficLight;
     @ManyToOne
     TrafficLightType trafficLightType;
-    //ссылка на версию пути
+    @ManyToOne
+    PathVersion pathVersion;
 }
