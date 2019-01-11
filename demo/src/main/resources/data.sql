@@ -45,6 +45,17 @@ INSERT INTO traffic_light_version (traffic_light_id,traffic_light_type_id, path_
 INSERT INTO traffic_light_version (traffic_light_id,traffic_light_type_id, path_version_id) VALUES (2,1,2);
 INSERT INTO traffic_light_version (traffic_light_id,traffic_light_type_id, path_version_id) VALUES (2,2,2);
 
+INSERT INTO building_type (name, description) VALUES ('локомотивное хозяйство', 'оборотное - производится подготовка локомотивов к следованию с поездами в направлении основного депо');
+INSERT INTO building_type (name, description) VALUES('вагонное хозяйство','эксплуатация и ремонт вагонов');
+INSERT INTO building_type (name, description) VALUES('диспетчерский центр','арочный');
+
+INSERT INTO building (x,y,description,building_type_id) VALUES(0,-40,'количество рабочих =10, ответственный - Петров П.П.',1);
+INSERT INTO building (x,y,description,building_type_id) VALUES(40,100,'количество рабочих установок -5',2);
+
+INSERT INTO building_version (x,y,description,building_type_id, building_id) VALUES(0,-40,'количество рабочих установок -5',1,1);
+INSERT INTO building_version (x,y,description,building_type_id, building_id) VALUES(40,100,'количество рабочих =10, ответственный - Петров П.П.',2,2);
+INSERT INTO building_version (x,y,description,building_type_id, building_id) VALUES(40,100,'количество рабочих = 12, ответственный - Вечеков З.О.',2,2);
+
 INSERT INTO department (number) VALUES ('6412');
 INSERT INTO department (number) VALUES ('6413');
 INSERT INTO department (number) VALUES ('6414');

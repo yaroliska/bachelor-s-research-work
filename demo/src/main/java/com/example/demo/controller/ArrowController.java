@@ -1,10 +1,8 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.Arrow;
-import com.example.demo.model.ArrowType;
 import com.example.demo.model.Path;
 import com.example.demo.repository.ArrowRepository;
-import com.example.demo.repository.ArrowTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
