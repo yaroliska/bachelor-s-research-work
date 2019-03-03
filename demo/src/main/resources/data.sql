@@ -1,3 +1,6 @@
+INSERT INTO park (name) VALUES ('Сортировочный парк');
+INSERT INTO park (name) VALUES ('Приемо-отправочный парк');
+
 INSERT INTO station (name, description) VALUES ('Белозерки', 'Самая преступная станция');
 INSERT INTO station (name, description) VALUES ('Марьино', 'Самая хорошая станция');
 INSERT INTO station (name, description) VALUES ('Кинель', 'Сортировочная станция');
@@ -55,6 +58,7 @@ INSERT INTO building (x,y,description,building_type_id) VALUES(40,100,'коли�
 INSERT INTO building_version (x,y,description,building_type_id, building_id) VALUES(0,-40,'количество рабочих установок -5',1,1);
 INSERT INTO building_version (x,y,description,building_type_id, building_id) VALUES(40,100,'количество рабочих =10, ответственный - Петров П.П.',2,2);
 INSERT INTO building_version (x,y,description,building_type_id, building_id) VALUES(40,100,'количество рабочих = 12, ответственный - Вечеков З.О.',2,2);
+
 
 INSERT INTO department (number) VALUES ('6412');
 INSERT INTO department (number) VALUES ('6413');

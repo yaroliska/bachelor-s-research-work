@@ -1,6 +1,7 @@
 import mainView from './components/main/mainView.vue';
 import department from './components/main/department.vue';
 import student from './components/main/student.vue';
+import editor from './components/main/editor.vue';
 
 
 export default [
@@ -19,6 +20,10 @@ export default [
       {
         path: 'student',
         component: student
+      },
+      {
+        path:'editor',
+        component:editor
       }
     ]
   }
