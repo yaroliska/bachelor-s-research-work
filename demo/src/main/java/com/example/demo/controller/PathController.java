@@ -20,7 +20,7 @@ public class PathController {
         return pathRepository.findAll();
     }
 
-    @PostMapping
+    @PostMapping//("add")
     @CrossOrigin("*")
     public void addPath(@RequestBody Path path) {
         pathRepository.save(path);

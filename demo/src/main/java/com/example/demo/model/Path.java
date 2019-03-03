@@ -21,7 +21,7 @@ public class Path {
     Double xEnd;
     Double yEnd;
 
-    @ManyToOne
+    @ManyToOne(optional = true)//, fetch = FetchType.LAZY)
     Park park;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE,CascadeType.PERSIST})
@@ -29,11 +29,6 @@ public class Path {
         joinColumns = {@JoinColumn(name = "path_id")},
         inverseJoinColumns = {@JoinColumn(name = "arrow_id")})
     List<Arrow> arrows = new ArrayList<>();
-
-    @Override
-    public String toString() {
-        return this.id.toString();
-    }
 
     public Long getId() {
         return id;
