@@ -1,9 +1,9 @@
 (function(window, document, undefined){
 // code that should be taken care of right away
 window.onload = init;
-	function init(){
-		runEditor();
-	}
+function init(){
+	runEditor();
+}
 })(window, document, undefined);
 
 function runEditor(){
@@ -19,7 +19,7 @@ function runEditor(){
 	drawPaths(ctx,pathsArray);//отобразить пути из массива
 	//подсветить путь по наведению
 	interactiveCanvas.onmousemove = function(e){
-		highlightLine(interactiveCanvas, ctx_interactive, e.offsetX, e.offsetY, pathsArray);
+		highlightLine(interactiveCanvas, ctx_interactive, e.offsetX, e.offsetY, pathsArray, canvas, ctx);
 	}
 	interactiveCanvas.onmousedown = function(e){
 		possiblePath.x1 = align(e.offsetX,step);
@@ -101,14 +101,19 @@ function redrawPaths(ctx, canvas, pathsArray){
 	drawPaths(ctx, pathsArray);
 }
 
-function highlightLine(canvas, ctx, x,y, pathsArray){
-	for (let value of pathsArray){
-		if(checkPointАffiliation(value.x1,value.y1,value.x2,value.y2,x,y)){
-			changeColor(ctx,"green");
-			drawLine(ctx,value.x1,value.y1,value.x2,value.y2);
-		}
-	}
-}
+function highlightLine(interactiveCanvas, ctx_interactive, x,y, pathsArray, canvas, ctx){ 
+	let b=false; 
+	for (let value of pathsArray){ 
+		if(checkPointАffiliation(value.x1,value.y1,value.x2,value.y2,x,y)){ 
+			console.log('popali!'); 
+			b=true; 
+			changeColor(ctx_interactive,"green"); 
+			drawLine(ctx_interactive,value.x1,value.y1,value.x2,value.y2); 
+		} 
+	} 
+	if(!b){ctx_interactive.clearRect(0, 0, interactiveCanvas.width, interactiveCanvas.height); 
+	} 
+} 
 
 function checkPointАffiliation(x1,y1,x2,y2,x,y){
 	if (((x -x1)*(y2-y1) - (x2-x1)*(y-y1))==0){
@@ -122,7 +127,7 @@ function checkPointАffiliation(x1,y1,x2,y2,x,y){
 					else return false;
 				}
 				else { if((x>=x1)&&(x<=x2)) return true;
-					   else return false;
+					else return false;
 				}
 			}
 
