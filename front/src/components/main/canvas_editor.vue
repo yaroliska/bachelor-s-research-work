@@ -22,6 +22,10 @@
           down: false
         },
         step: 20,
+        state:{
+          name:"draw_paths",
+          code:0,
+        },
         canvas:{
         },
         icanvas:{
@@ -38,6 +42,23 @@
         }
       }
     },
+    computed: {
+      isPath: function () {
+        let b = false;
+        for (let value of this.listOfPaths) {
+          if (this.checkPointAffiliation(value.xbegin, value.ybegin, value.xend, value.yend, this.mouse.current.x, this.mouse.current.y)) {
+            console.log('Popali na path!');
+            b = true;
+            //записали данные в потенциальный путь
+            this.possiblePath.xbegin =value.xbegin;
+            this.possiblePath.ybegin =value.ybegin;
+            this.possiblePath.xend=value.xend;
+            this.possiblePath.yend=value.yend;
+          }
+        }
+        return b;
+      }
+    },
     methods: {
       //функции отлова мыши
       iHandleMouseMove:function(event){
@@ -45,6 +66,20 @@
           x: event.offsetX,
           y: event.offsetY
         };
+        if(this.isPath){
+          this.changeColor("green",this.icanvas.ctx);
+          this.drawLine(this.icanvas.ctx,this.possiblePath.xbegin, this.possiblePath.ybegin,this.possiblePath.xend, this.possiblePath.yend);
+        }
+        else{
+          this.icanvas.ctx.clearRect(0, 0, this.icanvas.width, this.icanvas.height);
+        }
+
+        if(this.state.name==="draw_paths"){
+          if(this.state.code===1){
+            this.changeColor("light_grey",this.icanvas.ctx);
+            this.drawLine(this.icanvas.ctx,this.possiblePath.xbegin, this.possiblePath.ybegin,this.mouse.current.x, this.mouse.current.y);
+          }
+        }
         //console.log('Знаю где мышь: x- '+this.mouse.current.x +' y- ' +this.mouse.current.y);
       },
       iHandleMouseDown:function (event) {
@@ -55,6 +90,7 @@
         this.possiblePath.ybegin = this.align(this.mouse.current.y, this.step);
         //console.log('Нажато в точке '+ this.mouse.current.x +' ' +this.mouse.current.y);
         //console.log('Возможное начало пути: ' + this.possiblePath.xbegin +' ' + this.possiblePath.ybegin);
+        if(this.state.name==="draw_paths"){this.state.code=1;}//код один означает, что нажата кнопка mouseDown
       },
       iHandleMouseUp:function (event) {
         //добавить привязку к состоянию редактора
@@ -64,6 +100,8 @@
         //функция отправки в базу данных новой линии и получения из базы сгенерированного id для нового пути
         if(this.isValidPath(this.possiblePath)) {
           this.listOfPaths.push(Object.assign({}, this.possiblePath));
+          this.redrawPaths();
+          this.state.code=0;
           console.log(this.listOfPaths);
         }
         else console.log('Это было одинарное нажатие, путь записать нельзя');
@@ -92,6 +130,12 @@
         }
       },
 
+      //функция перерисовки путей
+      redrawPaths:function(ctx){
+        this.canvas.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        this.drawDots(this.canvas, this.canvas.ctx);
+        this.drawPaths(this.canvas.ctx);
+      },
       //функция рисования точек на канвасе
       drawDots:function(canvas,ctx){
         for (let i=this.step/2; i<canvas.width; i+=this.step){
@@ -119,6 +163,62 @@
         //нарисовать светофоры
       },
 
+      //функция проверки принадлежности точки к пути
+      checkPointAffiliation:function(x1,y1,x2,y2,x,y){
+        if (((x -x1)*(y2-y1) - (x2-x1)*(y-y1))===0){
+          if(y1===y2){
+            if(x1===x2){
+              //console.log("сравнение точки с точкой");
+            }
+            else{
+              if(x1>x2){
+                if((x>=x2)&&(x<=x1))return true;
+                else return false;
+              }
+              else { if((x>=x1)&&(x<=x2)) return true;
+              else return false;
+              }
+            }
+
+          }
+          else{
+            if(y1>y2){
+              if((y>=y2)&&(y<=y1))return true;
+              else return false;
+            }
+            else{
+              if((y>=y1)&&(y<=y2))return true;
+              else return false;
+
+            }
+
+          }
+
+        }
+        return false;
+      },
+
+      //функция смены цвета для рисования
+      changeColor:function(color,ctx){
+        if(color === "green"){
+          ctx.strokeStyle = "#3ACFAE";
+          ctx.fillStyle="#3ACFAE";
+        }
+        if(color === "grey"){
+          ctx.strokeStyle = "#707070";
+          ctx.fillStyle="#707070";
+        }
+        if(color==="light_grey"){
+          ctx.strokeStyle="#DBE1E1";
+          ctx.fillStyle="#DBE1E1";
+        }
+      },
+
+      //функция отрисовки вспомогательной линии
+      drawHelpLine:function(){
+        let xbegin = this.possiblePath.xbegin;
+        let vbegin = this.possiblePath.ybegin;
+      },
 
 
 
