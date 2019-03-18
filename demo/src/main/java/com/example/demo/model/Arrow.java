@@ -1,5 +1,8 @@
 package com.example.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -10,6 +13,9 @@ import java.util.Set;
 
 @Data
 @Entity
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property="id")
 public class Arrow {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,8 +27,10 @@ public class Arrow {
     @ManyToOne
     ArrowType arrowType;
 
+
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE,CascadeType.PERSIST},
             mappedBy = "arrows")
+
     private List<Path> paths = new ArrayList<>();
 
     public List<Path> getPaths() {
