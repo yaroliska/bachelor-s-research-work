@@ -19,11 +19,11 @@ public class ArrowController {
     @CrossOrigin("*")
     public List<Arrow> getArrow() {
         List<Arrow> ars = arrowRepository.findAll();
-        for(Arrow ar : ars){
-            for(Path path : ar.getPaths()){
-                path.setArrows(null);
-            }
-        }
+//        for(Arrow ar : ars){
+//            for(Path path : ar.getPaths()){
+//                path.setArrows(null);
+//            }
+//        }
 
 //        Path p = ars.get(0).getPaths().get(0);
 //        long pn = p.getId();

@@ -26,12 +26,12 @@ public class ArrowVersion {
     @ManyToOne
     ArrowType arrowType;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE,CascadeType.PERSIST},
+   /* @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE,CascadeType.PERSIST},
             mappedBy = "arrow_versions")
     private List<PathVersion> pathVersions = new ArrayList<>();
 
     public List<PathVersion> getPathVersions() {
         return pathVersions;
     }
-
+    */
 }

@@ -17,6 +17,7 @@ public class PathController {
     @GetMapping
     @CrossOrigin("*")
     public List<Path> getPaths() {
+        List<Path> ps = pathRepository.findAll();
         return pathRepository.findAll();
     }
 

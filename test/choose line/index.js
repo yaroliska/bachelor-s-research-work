@@ -7,6 +7,7 @@ function init(){
 })(window, document, undefined);
 
 function runEditor(){
+	var status={name: ''};
 	let canvas = document.getElementById("canvas");
 	let interactiveCanvas = document.getElementById("interactive-canvas");
 	let ctx_interactive = interactiveCanvas.getContext("2d");
@@ -14,12 +15,27 @@ function runEditor(){
 	let step=20;
 	let pathsArray = [];
 	let possiblePath ={};
+
+
 	
 	drawDots(step, canvas, ctx);//рисуем точки на канвасе
+	createPaths(pathsArray);
 	drawPaths(ctx,pathsArray);//отобразить пути из массива
-	//подсветить путь по наведению
+
+	interactiveCanvas.onkeydown = function(e){
+		//alert(e.key);
+
+		if (e.key === 'Delete'){
+			if(status.name=="highlightLineTrue"){
+				console.log('удаляю путь');
+				deletePath(pathsArray, ctx, canvas, possiblePath);
+			}
+		}
+	};
+
 	interactiveCanvas.onmousemove = function(e){
-		highlightLine(interactiveCanvas, ctx_interactive, e.offsetX, e.offsetY, pathsArray, canvas, ctx);
+		//подсветить путь по наведению
+		highlightLine(interactiveCanvas, ctx_interactive, e.offsetX, e.offsetY, pathsArray, status, possiblePath);
 	}
 	interactiveCanvas.onmousedown = function(e){
 		possiblePath.x1 = align(e.offsetX,step);
@@ -30,6 +46,7 @@ function runEditor(){
 		possiblePath.y2 = align(e.offsetY, step);
 		drawLine(ctx,possiblePath.x1,possiblePath.y1, possiblePath.x2, possiblePath.y2);
 		//функция отправки в базу данных новой линии и прием из базы сгенерированного id для нового пути
+		console.log(pathsArray);
 		pathsArray.push(Object.assign({},possiblePath));
 		console.log(pathsArray);
 	}
@@ -45,6 +62,8 @@ function drawDots(step,canvas,ctx){
 
 function getPaths(pathsArray){
 	//функция получения путей из бд (пока только на js)
+}
+function createPaths(pathsArray){
 	path1 = {};
 	path1.id = 0;
 	path1.x1 = 70;
@@ -79,7 +98,6 @@ function getPaths(pathsArray){
 }
 
 function drawPaths(ctx,pathsArray){
-	getPaths(pathsArray);//забираем пути из БД
 	for (let value of pathsArray) {
 		drawLine(ctx,value.x1,value.y1,value.x2,value.y2);
 	}
@@ -99,16 +117,23 @@ function drawLine(ctx,x1,y1,x2,y2){
 function redrawPaths(ctx, canvas, pathsArray){
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
 	drawPaths(ctx, pathsArray);
+	drawDots(20,canvas,ctx);//step
 }
 
-function highlightLine(interactiveCanvas, ctx_interactive, x,y, pathsArray, canvas, ctx){ 
+function highlightLine(interactiveCanvas, ctx_interactive, x,y, pathsArray,status, possiblePath){ 
 	let b=false; 
 	for (let value of pathsArray){ 
 		if(checkPointАffiliation(value.x1,value.y1,value.x2,value.y2,x,y)){ 
 			console.log('popali!'); 
-			b=true; 
+			b=true;
+			status.name ="highlightLineTrue";
 			changeColor(ctx_interactive,"green"); 
-			drawLine(ctx_interactive,value.x1,value.y1,value.x2,value.y2); 
+			drawLine(ctx_interactive,value.x1,value.y1,value.x2,value.y2);
+			possiblePath.id = value.id;
+			possiblePath.x1 = value.x1;
+			possiblePath.y1 = value.y1;
+			possiblePath.x2 = value.x2;
+			possiblePath.y2 = value.y2;
 		} 
 	} 
 	if(!b){ctx_interactive.clearRect(0, 0, interactiveCanvas.width, interactiveCanvas.height); 
@@ -119,7 +144,7 @@ function checkPointАffiliation(x1,y1,x2,y2,x,y){
 	if (((x -x1)*(y2-y1) - (x2-x1)*(y-y1))==0){
 		if(y1==y2){
 			if(x1==x2){
-				console.log("сравнение точки с точкой");
+				//console.log("сравнение точки с точкой");
 			}
 			else{
 				if(x1>x2){
@@ -158,4 +183,17 @@ function changeColor(ctx,color){
 		ctx.strokeStyle = "#707070";
 		ctx.fillStyle="#707070";
 	}
+}
+
+function deletePath(pathsArray, ctx, canvas, possiblePath){
+	for(let i=0; i<pathsArray.length; i++){
+		console.log("внутри цикла");
+		if(pathsArray[i].id==possiblePath.id){
+			console.log("внутри цикла");
+			console.log(pathsArray);
+			pathsArray.splice(i, 1);
+			console.log(pathsArray);
+		}
+	}
+	redrawPaths(ctx,canvas, pathsArray);
 }

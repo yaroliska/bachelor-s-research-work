@@ -21,12 +21,12 @@ public class Arrow {
     @ManyToOne
     ArrowType arrowType;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE,CascadeType.PERSIST},
+    /*@ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE,CascadeType.PERSIST},
             mappedBy = "arrows")
     private List<Path> paths = new ArrayList<>();
 
     public List<Path> getPaths() {
         return paths;
-    }
+    }*/
 
 }

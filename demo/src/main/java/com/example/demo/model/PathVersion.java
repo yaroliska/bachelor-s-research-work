@@ -15,10 +15,10 @@ public class PathVersion {
     Long id;
 
     Integer number;
-    Double xBegin;
-    Double yBegin;
-    Double xEnd;
-    Double yEnd;
+    Double xbegin;
+    Double ybegin;
+    Double xend;
+    Double yend;
     @ManyToOne
     Path path;
     @ManyToOne
@@ -26,7 +26,7 @@ public class PathVersion {
     @ManyToOne
     GlobalVersion globalVersion;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE,CascadeType.PERSIST})
+   /* @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE,CascadeType.PERSIST})
     @JoinTable(name = "arrow_version_path_version",
             joinColumns = {@JoinColumn(name = "path_version_id")},
             inverseJoinColumns = {@JoinColumn(name = "arrow_version_id")})
@@ -43,5 +43,5 @@ public class PathVersion {
 
     public void setArrowVersions(List<ArrowVersion> arrow_versions) {
         this.arrow_versions = arrow_versions;
-    }
+    }*/
 }
