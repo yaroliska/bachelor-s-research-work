@@ -22,6 +22,10 @@
           down: false
         },
         step: 20,
+        state:{
+          name:"draw_paths",
+          code:0,
+        },
         canvas:{
         },
         icanvas:{
@@ -69,6 +73,13 @@
         else{
           this.icanvas.ctx.clearRect(0, 0, this.icanvas.width, this.icanvas.height);
         }
+
+        if(this.state.name==="draw_paths"){
+          if(this.state.code===1){
+            this.changeColor("light_grey",this.icanvas.ctx);
+            this.drawLine(this.icanvas.ctx,this.possiblePath.xbegin, this.possiblePath.ybegin,this.mouse.current.x, this.mouse.current.y);
+          }
+        }
         //console.log('Знаю где мышь: x- '+this.mouse.current.x +' y- ' +this.mouse.current.y);
       },
       iHandleMouseDown:function (event) {
@@ -79,6 +90,7 @@
         this.possiblePath.ybegin = this.align(this.mouse.current.y, this.step);
         //console.log('Нажато в точке '+ this.mouse.current.x +' ' +this.mouse.current.y);
         //console.log('Возможное начало пути: ' + this.possiblePath.xbegin +' ' + this.possiblePath.ybegin);
+        if(this.state.name==="draw_paths"){this.state.code=1;}//код один означает, что нажата кнопка mouseDown
       },
       iHandleMouseUp:function (event) {
         //добавить привязку к состоянию редактора
@@ -88,6 +100,8 @@
         //функция отправки в базу данных новой линии и получения из базы сгенерированного id для нового пути
         if(this.isValidPath(this.possiblePath)) {
           this.listOfPaths.push(Object.assign({}, this.possiblePath));
+          this.redrawPaths();
+          this.state.code=0;
           console.log(this.listOfPaths);
         }
         else console.log('Это было одинарное нажатие, путь записать нельзя');
@@ -116,6 +130,12 @@
         }
       },
 
+      //функция перерисовки путей
+      redrawPaths:function(ctx){
+        this.canvas.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        this.drawDots(this.canvas, this.canvas.ctx);
+        this.drawPaths(this.canvas.ctx);
+      },
       //функция рисования точек на канвасе
       drawDots:function(canvas,ctx){
         for (let i=this.step/2; i<canvas.width; i+=this.step){
@@ -188,7 +208,18 @@
           ctx.strokeStyle = "#707070";
           ctx.fillStyle="#707070";
         }
+        if(color==="light_grey"){
+          ctx.strokeStyle="#DBE1E1";
+          ctx.fillStyle="#DBE1E1";
+        }
       },
+
+      //функция отрисовки вспомогательной линии
+      drawHelpLine:function(){
+        let xbegin = this.possiblePath.xbegin;
+        let vbegin = this.possiblePath.ybegin;
+      },
+
 
 
       //функции работающие с бд
