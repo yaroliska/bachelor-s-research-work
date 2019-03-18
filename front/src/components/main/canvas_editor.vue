@@ -70,7 +70,7 @@
       },
 
       //основные функции
-      //находим ближайшую усредненную точку
+      //функция нахождения ближайшей усредненной точки
       align:function (val, step) {
         return val -(val%step)+step/2;
       },
@@ -85,19 +85,18 @@
 
       //функция отрисовки всех путей, лежащих в listOfPaths
       drawPaths:function(ctx){
+        console.log(this.listOfPaths);
         for (let value of this.listOfPaths) {
           console.log(value);
           this.drawLine(ctx,value.xbegin,value.ybegin,value.xend,value.yend);
         }
       },
 
-
-
       //функция рисования точек на канвасе
-      drawDots:function(canvas){
+      drawDots:function(canvas,ctx){
         for (let i=this.step/2; i<canvas.width; i+=this.step){
           for (let j=this.step/2; j<canvas.height; j+=this.step){
-            canvas.ctx.fillRect(i,j,1,1)
+            ctx.fillRect(i,j,1,1)
           }
         }
       },
@@ -107,6 +106,17 @@
         if ((path.xbegin===path.xend)&&(path.ybegin ===path.yend))
           return false;
         else return true;
+      },
+
+      //функция подготовки канваса и загрузки всех необходимых объектов из бд)
+      toStart:function(){
+        this.drawDots(this.canvas, this.canvas.ctx);
+        this.getPaths();//забираем пути из бд
+        this.drawPaths(this.canvas.ctx);
+        //забрать стрелки
+        //нарисовать стрелки
+        //забрать светофоры
+        //нарисовать светофоры
       },
 
 
@@ -122,6 +132,7 @@
       //функция получения всех путей из базы данных и их записи во фронт
       getPaths:function(){
         //временная функция создания тестовых путей
+        this.createListOfPaths();
       },
 
       //функции возвращающие canvas
@@ -140,7 +151,46 @@
 
       //тестовые функции
       createListOfPaths:function(){
-
+        this.possiblePath.xbegin=110;
+        this.possiblePath.ybegin=270;
+        this.possiblePath.xend=230;
+        this.possiblePath.yend=270;
+        this.listOfPaths.push(Object.assign({}, this.possiblePath));
+        this.possiblePath.xbegin=230;
+        this.possiblePath.ybegin=270;
+        this.possiblePath.xend=250;
+        this.possiblePath.yend=250;
+        this.listOfPaths.push(Object.assign({}, this.possiblePath));
+        this.possiblePath.xbegin=250;
+        this.possiblePath.ybegin=250;
+        this.possiblePath.xend=390;
+        this.possiblePath.yend=250;
+        this.listOfPaths.push(Object.assign({}, this.possiblePath));
+        this.possiblePath.xbegin=230;
+        this.possiblePath.ybegin=270;
+        this.possiblePath.xend=250;
+        this.possiblePath.yend=290;
+        this.listOfPaths.push(Object.assign({}, this.possiblePath));
+        this.possiblePath.xbegin=250;
+        this.possiblePath.ybegin=290;
+        this.possiblePath.xend=390;
+        this.possiblePath.yend=290;
+        this.listOfPaths.push(Object.assign({}, this.possiblePath));
+        this.possiblePath.xbegin=390;
+        this.possiblePath.ybegin=290;
+        this.possiblePath.xend=410;
+        this.possiblePath.yend=270;
+        this.listOfPaths.push(Object.assign({}, this.possiblePath));
+        this.possiblePath.xbegin=390;
+        this.possiblePath.ybegin=250;
+        this.possiblePath.xend=410;
+        this.possiblePath.yend=270;
+        this.listOfPaths.push(Object.assign({}, this.possiblePath));
+        this.possiblePath.xbegin=410;
+        this.possiblePath.ybegin=270;
+        this.possiblePath.xend=510;
+        this.possiblePath.yend=270;
+        this.listOfPaths.push(Object.assign({}, this.possiblePath));
       }
 
 
@@ -211,8 +261,8 @@
       //получаем данные с канваса при загрузке
       this.getCanvas();
       this.getICanvas();
-      this.drawDots(this.canvas);
-      //this.drawPaths();
+      //выполняем все необходимые запросы к бд и отрисовки перед началом работы
+      this.toStart();
     }
   }
 </script>
