@@ -1,6 +1,6 @@
 <template>
   <div>
-    <canvas id="interactive-canvas" v-on:mousedown="iHandleMouseDown" v-on:mouseup="iHandleMouseUp" v-on:mousemove="iHandleMouseMove" width="1000px" height="1000px">
+    <canvas id="interactive-canvas" v-on:mousedown="iHandleMouseDown" v-on:mouseup="iHandleMouseUp" v-on:mousemove="iHandleMouseMove" v-on:click="iHandleClick" v-on:keydown="iHandleKeyDown" width="1000px" height="1000px">
   </canvas>
   <canvas id="canvas" v-on:mousedown="handleMouseDown" v-on:mouseup="handleMouseUp" width="1000px" height="1000px">
   </canvas>
@@ -23,7 +23,7 @@
         },
         step: 20,
         state:{
-          name:"draw_paths",
+          name:"work_with_paths",
           code:0,
         },
         canvas:{
@@ -31,6 +31,7 @@
         icanvas:{
         },
         listOfPaths:[],
+        selectedPath:[],
         possiblePath:{
           number:'2',
           xbegin:'',
@@ -49,7 +50,6 @@
           if (this.checkPointAffiliation(value.xbegin, value.ybegin, value.xend, value.yend, this.mouse.current.x, this.mouse.current.y)) {
             console.log('Popali na path!');
             b = true;
-            //записали данные в потенциальный путь
             this.possiblePath.xbegin =value.xbegin;
             this.possiblePath.ybegin =value.ybegin;
             this.possiblePath.xend=value.xend;
@@ -60,21 +60,37 @@
       }
     },
     methods: {
+      //функции отлова клавиш
+      iHandleKeyDown:function(event){
+        if (event.key === 'Delete'){
+          if(this.isPath()){
+            console.log('удаляю путь');
+            //функция удаления путей
+          }
+        }
+      },
       //функции отлова мыши
+      /*iHandleClick:function(){
+        if(this.isPath()){
+
+        }
+      },*/
       iHandleMouseMove:function(event){
         this.mouse.current = {
           x: event.offsetX,
           y: event.offsetY
         };
+
         if(this.isPath){
           this.changeColor("green",this.icanvas.ctx);
           this.drawLine(this.icanvas.ctx,this.possiblePath.xbegin, this.possiblePath.ybegin,this.possiblePath.xend, this.possiblePath.yend);
+          this.state.name = "work_with_paths"; this.state.code=2;
         }
         else{
           this.icanvas.ctx.clearRect(0, 0, this.icanvas.width, this.icanvas.height);
         }
 
-        if(this.state.name==="draw_paths"){
+        if(this.state.name==="work_with_paths"){
           if(this.state.code===1){
             this.changeColor("light_grey",this.icanvas.ctx);
             this.drawLine(this.icanvas.ctx,this.possiblePath.xbegin, this.possiblePath.ybegin,this.mouse.current.x, this.mouse.current.y);
@@ -90,7 +106,7 @@
         this.possiblePath.ybegin = this.align(this.mouse.current.y, this.step);
         //console.log('Нажато в точке '+ this.mouse.current.x +' ' +this.mouse.current.y);
         //console.log('Возможное начало пути: ' + this.possiblePath.xbegin +' ' + this.possiblePath.ybegin);
-        if(this.state.name==="draw_paths"){this.state.code=1;}//код один означает, что нажата кнопка mouseDown
+        if(this.state.name==="work_with_paths"){this.state.code=1;}//код один означает, что нажата кнопка mouseDown
       },
       iHandleMouseUp:function (event) {
         //добавить привязку к состоянию редактора
@@ -100,8 +116,9 @@
         //функция отправки в базу данных новой линии и получения из базы сгенерированного id для нового пути
         if(this.isValidPath(this.possiblePath)) {
           this.listOfPaths.push(Object.assign({}, this.possiblePath));
-          this.redrawPaths();
           this.state.code=0;
+          this.postPath();
+          this.redrawPaths();
           console.log(this.listOfPaths);
         }
         else console.log('Это было одинарное нажатие, путь записать нельзя');
@@ -156,7 +173,7 @@
       toStart:function(){
         this.drawDots(this.canvas, this.canvas.ctx);
         this.getPaths();//забираем пути из бд
-        this.drawPaths(this.canvas.ctx);
+        //this.drawPaths(this.canvas.ctx);
         //забрать стрелки
         //нарисовать стрелки
         //забрать светофоры
@@ -214,25 +231,49 @@
         }
       },
 
-      //функция отрисовки вспомогательной линии
-      drawHelpLine:function(){
-        let xbegin = this.possiblePath.xbegin;
-        let vbegin = this.possiblePath.ybegin;
+      //не протестировано
+      //функция удаления пути
+      deletePath:function(canvas, possiblePath){
+        for(let i=0; i<this.listOfPaths.length; i++){
+          if(this.listOfPaths[i].id===possiblePath.id){
+            console.log("удаляю");
+            console.log(this.listOfPaths);
+            this.listOfPaths.splice(i, 1);
+            console.log(this.listOfPaths);
+          }
+        }
+        this.redrawPaths(this.canvas.ctx);
       },
+
+      //
 
 
 
       //функции работающие с бд
 
       //функция отправки в базу данных новой линии и получения из базы сгенерированного id для нового пути
-      setPath:function(){
-
+      postPath:function(){
+        console.log('be');
+         axios.post('http://localhost:8081/api/path', this.possiblePath)
+        .then(function (response) {
+          console.log(response);
+        });
       },
 
       //функция получения всех путей из базы данных и их записи во фронт
       getPaths:function(){
         //временная функция создания тестовых путей
-        this.createListOfPaths();
+        //this.createListOfPaths();
+        let self = this;
+        axios.get('http://localhost:8081/api/path')
+          .then(function (response) {
+            console.log(response.data);
+            self.listOfPaths = response.data;
+            self.drawPaths(self.canvas.ctx);
+          })
+          .catch(function (error) {
+            console.log(error);
+          })
       },
 
       //функции возвращающие canvas
@@ -293,6 +334,10 @@
         this.listOfPaths.push(Object.assign({}, this.possiblePath));
       }
 
+      //draw_paths_0 - никакого действия с путем не производится
+      //draw_paths_1 - начато рисование пути
+      //draw_paths_2 - путь подсвечен но не выделен
+      //
 
      /* align:function(val, st){
         return val - (val%st) + st/2;
