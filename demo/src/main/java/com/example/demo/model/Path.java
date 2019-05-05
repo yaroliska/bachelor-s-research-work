@@ -1,20 +1,15 @@
 package com.example.demo.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonView;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Data;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @Entity
-@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property="id")
 public class Path {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,7 +23,7 @@ public class Path {
 
     @ManyToOne(optional = true)//, fetch = FetchType.LAZY)
     Park park;
-    
+
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE,CascadeType.PERSIST})
     @JoinTable(name = "arrow_path",
         joinColumns = {@JoinColumn(name = "path_id")},
