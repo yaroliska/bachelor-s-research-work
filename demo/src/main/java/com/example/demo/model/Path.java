@@ -16,10 +16,10 @@ public class Path {
     Long id;
 
     Integer number;
-    Double xBegin;
-    Double yBegin;
-    Double xEnd;
-    Double yEnd;
+    Double xbegin;
+    Double ybegin;
+    Double xend;
+    Double yend;
 
     @ManyToOne(optional = true)//, fetch = FetchType.LAZY)
     Park park;
@@ -34,7 +34,63 @@ public class Path {
         return id;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Integer getNumber() {
+        return number;
+    }
+
+    public void setNumber(Integer number) {
+        this.number = number;
+    }
+
+    public Double getXbegin() {
+        return xbegin;
+    }
+
+    public void setXbegin(Double xbegin) {
+        this.xbegin = xbegin;
+    }
+
+    public Double getYbegin() {
+        return ybegin;
+    }
+
+    public void setYbegin(Double ybegin) {
+        this.ybegin = ybegin;
+    }
+
+    public Double getXend() {
+        return xend;
+    }
+
+    public void setXend(Double xend) {
+        this.xend = xend;
+    }
+
+    public Double getYend() {
+        return yend;
+    }
+
+    public void setYend(Double yend) {
+        this.yend = yend;
+    }
+
+    public Park getPark() {
+        return park;
+    }
+
+    public void setPark(Park park) {
+        this.park = park;
+    }
+
     public void setArrows(List<Arrow> arrows) {
         this.arrows = arrows;
+    }
+
+    public List<Arrow> getArrows() {
+        return arrows;
     }
 }
