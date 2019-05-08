@@ -4,6 +4,8 @@ import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
 import VueRouter from 'vue-router'
 import Routes from './routes'
+require('./assets/styles/colorScheme.css')
+
 
 Vue.use(Vuetify)
 Vue.use(VueRouter);

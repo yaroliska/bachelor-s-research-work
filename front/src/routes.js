@@ -1,13 +1,14 @@
 import mainView from './components/main/mainView.vue';
 import department from './components/main/department.vue';
 import student from './components/main/student.vue';
-import editor from './components/main/editor.vue';
+//import editor from './components/main/editor.vue';
+import constructorMainPage from './components/main/constructor/constructorMainPage.vue';
 
 
 export default [
   {
     path: '/',
-    redirect: '/mainview/department'
+    redirect: '/mainview/constructorMainPage'
   },
   {
     path: '/mainview',
@@ -22,8 +23,8 @@ export default [
         component: student
       },
       {
-        path:'editor',
-        component:editor
+        path:'constructorMainPage',
+        component:constructorMainPage
       }
     ]
   }

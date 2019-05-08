@@ -41,6 +41,6 @@
   }
 
   div.v-list__tile:hover {
-    background-color: #F5F5F5;
+    background-color: var(--white);
   }
 </style>

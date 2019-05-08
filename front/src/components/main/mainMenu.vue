@@ -1,38 +1,50 @@
 <template>
   <div>
-    <v-navigation-drawer persistent :mini-variant="miniVariant" :clipped="clipped" v-model="drawer"
+    <v-navigation-drawer class="v-nav" persistent :mini-variant="miniVariant" :clipped="clipped" v-model="drawer"
                          enable-resize-watcher fixed app>
       <v-list>
-        <router-link to="department">
+        <router-link to="comparison_of_models">
           <v-list-tile value="true">
             <v-list-tile-action>
-              <v-icon>group</v-icon>
+              <v-icon>bar_chart</v-icon>
             </v-list-tile-action>
             <v-list-tile-content>
-              <v-list-tile-title>Департаменты</v-list-tile-title>
+              <v-list-tile-title>Сравнение моделей</v-list-tile-title>
             </v-list-tile-content>
           </v-list-tile>
         </router-link>
-        <router-link to="student">
+
+        <router-link to="constructorMainPage">
           <v-list-tile value="true">
             <v-list-tile-action>
-              <v-icon>face</v-icon>
+              <v-icon>create</v-icon>
             </v-list-tile-action>
             <v-list-tile-content>
-              <v-list-tile-title>Студенты</v-list-tile-title>
+              <v-list-tile-title>Конструирование</v-list-tile-title>
             </v-list-tile-content>
           </v-list-tile>
         </router-link>
-        <router-link to="editor">
+
+       <!-- <router-link to="editor">
           <v-list-tile value="true">
             <v-list-tile-action>
-              <v-icon>video_label</v-icon>
+              <v-icon>school</v-icon>
             </v-list-tile-action>
             <v-list-tile-content>
-              <v-list-tile-title>Конструктор</v-list-tile-title>
+              <v-list-tile-title>Руководство пользователя</v-list-tile-title>
             </v-list-tile-content>
           </v-list-tile>
-        </router-link>
+        </router-link>-->
+        <!--<router-link to="editor">
+          <v-list-tile value="true">
+            <v-list-tile-action>
+              <v-icon>train</v-icon>
+            </v-list-tile-action>
+            <v-list-tile-content>
+              <v-list-tile-title>О программе</v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
+        </router-link>-->
       </v-list>
     </v-navigation-drawer>
     <v-toolbar app :clipped-left="clipped">
@@ -43,7 +55,7 @@
       <v-btn icon @click.stop="clipped = !clipped">
         <v-icon>web</v-icon>
       </v-btn>
-      <v-toolbar-title>Привет, ЯРА !</v-toolbar-title>
+      <v-toolbar-title>Редактор путевого развития</v-toolbar-title>
     </v-toolbar>
   </div>
 </template>
@@ -81,6 +93,19 @@
   }
 
   div.v-list__tile:hover {
-    background-color: #F5F5F5;
+    background-color: var(--green-medium);
+  }
+  .v-nav{
+    background-color: var(--green-dark)!important;
+  }
+  div.v-list__tile{
+    color:white !important;
+  }
+  div.v-toolbar__content{
+    color:white;
+    background-color: var(--green-light) !important;
+  }
+  .theme--light{
+    color:var(--white) !important;
   }
 </style>

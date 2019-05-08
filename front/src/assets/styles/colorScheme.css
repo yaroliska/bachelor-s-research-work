@@ -1,0 +1,9 @@
+:root {
+  --main-bg-color: brown;
+  --green-lightest:#AED6C5 ;
+  --green-light:#639C83;
+  --green-medium: #338562;	/* Main Primary color */
+  --green-dark:#137048;
+  --green-darkest: #003C22;
+  --white: #fff;
+}
