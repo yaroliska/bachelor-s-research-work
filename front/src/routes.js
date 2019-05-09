@@ -1,8 +1,8 @@
 import mainView from './components/main/mainView.vue';
-import department from './components/main/department.vue';
-import student from './components/main/student.vue';
-//import editor from './components/main/editor.vue';
+import comparisonOfModelsMain from './components/main/comparisonOfModels/comparisonOfModelsMain.vue';
 import constructorMainPage from './components/main/constructor/constructorMainPage.vue';
+import userGuidMain from './components/main/userGuid/userGuidMain';
+import aboutProgram from './components/main/aboutProgram/aboutProgram';
 
 
 export default [
@@ -15,16 +15,20 @@ export default [
     component: mainView,
     children: [
       {
-        path: 'department',
-        component: department
-      },
-      {
-        path: 'student',
-        component: student
+        path:'comparisonOfModels',
+        component:comparisonOfModelsMain
       },
       {
         path:'constructorMainPage',
         component:constructorMainPage
+      },
+      {
+        path:'userGuid',
+        component:userGuidMain
+      },
+      {
+        path:'aboutProgram',
+        component:aboutProgram
       }
     ]
   }

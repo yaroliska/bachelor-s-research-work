@@ -1,6 +1,6 @@
 <template>
   <div>
-    <canvas id="canvas" v-on:mousedown="handleMouseDown" v-on:mouseup="handleMouseUp" width="1000px" height="1000px">
+    <canvas id="canvas" width="1000px" height="1000px">
   </canvas>
   <canvas id="interactive-canvas" v-on:mousedown="iHandleMouseDown" v-on:mouseup="iHandleMouseUp" v-on:mousemove="iHandleMouseMove" width="1000px" height="1000px">
   </canvas>

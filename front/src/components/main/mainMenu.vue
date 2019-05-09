@@ -3,7 +3,7 @@
     <v-navigation-drawer class="v-nav" persistent :mini-variant="miniVariant" :clipped="clipped" v-model="drawer"
                          enable-resize-watcher fixed app>
       <v-list>
-        <router-link to="comparison_of_models">
+        <router-link to="comparisonOfModels">
           <v-list-tile value="true">
             <v-list-tile-action>
               <v-icon>bar_chart</v-icon>
@@ -25,7 +25,7 @@
           </v-list-tile>
         </router-link>
 
-       <!-- <router-link to="editor">
+       <router-link to="userGuid">
           <v-list-tile value="true">
             <v-list-tile-action>
               <v-icon>school</v-icon>
@@ -34,8 +34,8 @@
               <v-list-tile-title>Руководство пользователя</v-list-tile-title>
             </v-list-tile-content>
           </v-list-tile>
-        </router-link>-->
-        <!--<router-link to="editor">
+        </router-link>
+        <router-link to="aboutProgram">
           <v-list-tile value="true">
             <v-list-tile-action>
               <v-icon>train</v-icon>
@@ -44,7 +44,7 @@
               <v-list-tile-title>О программе</v-list-tile-title>
             </v-list-tile-content>
           </v-list-tile>
-        </router-link>-->
+        </router-link>
       </v-list>
     </v-navigation-drawer>
     <v-toolbar app :clipped-left="clipped">
@@ -55,7 +55,7 @@
       <v-btn icon @click.stop="clipped = !clipped">
         <v-icon>web</v-icon>
       </v-btn>
-      <v-toolbar-title>Редактор путевого развития</v-toolbar-title>
+      <v-toolbar-title id="v-toolbar-title-header" v-on:change="changeHeader">Редактор путевого развития</v-toolbar-title>
     </v-toolbar>
   </div>
 </template>
@@ -79,6 +79,9 @@
       }
     },
     methods: {
+      changeHeader:function (text) {
+        document.getElementById('v-toolbar-title-header').innerText="text";
+      }
     }
   }
 </script>
