@@ -3,7 +3,7 @@ import comparisonOfModelsMain from './components/main/comparisonOfModels/compari
 import constructorMainPage from './components/main/constructor/constructorMainPage.vue';
 import userGuidMain from './components/main/userGuid/userGuidMain';
 import aboutProgram from './components/main/aboutProgram/aboutProgram';
-
+import addNewStation from './components/main/constructor/addNewStation';
 
 export default [
   {
@@ -20,7 +20,13 @@ export default [
       },
       {
         path:'constructorMainPage',
-        component:constructorMainPage
+        component:constructorMainPage,
+        children:[
+          {
+            path:'addNewStation',
+            component:addNewStation
+          }
+        ]
       },
       {
         path:'userGuid',
@@ -29,7 +35,7 @@ export default [
       {
         path:'aboutProgram',
         component:aboutProgram
-      }
+      },
     ]
   }
 ]

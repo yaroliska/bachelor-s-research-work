@@ -26,7 +26,7 @@
         </router-link>
 
        <router-link to="userGuid">
-          <v-list-tile value="true" v-on:click="changeMainHeader('Руководство пользователя')">
+          <v-list-tile v-on:click="changeMainHeader('Руководство пользователя')" value="true" >
             <v-list-tile-action>
               <v-icon>school</v-icon>
             </v-list-tile-action>
@@ -36,7 +36,7 @@
           </v-list-tile>
         </router-link>
         <router-link to="aboutProgram" >
-          <v-list-tile value="true" v-on:click="changeMainHeader('О программе')">
+          <v-list-tile v-on:click="changeMainHeader('О программе')" value="true" >
             <v-list-tile-action>
               <v-icon>train</v-icon>
             </v-list-tile-action>

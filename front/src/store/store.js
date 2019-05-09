@@ -5,17 +5,31 @@ Vue.use(Vuex);
 
 export const store = new Vuex.Store({
   state: {
-    mainHeader: 'Привет, я header'
+    mainHeader: 'Начните работу!',
+    stationsExist:null,
+    constructorState:{
+      stationId:null,
+      versionId:null,
+      editorState:{
+        editorMode:{
+          nameOfMode:null,
+          typeOfTool:null
+        }
+      }
+    }
   },
   getters: {
-    /*mainHeaderTwo:state=>{
-      var mainHeaderTwo=state.mainHeader;
-      return mainHeaderTwo;
-    }*/
+    getMainHeader:state=>{
+      let mainHeader=state.mainHeader;
+      return mainHeader;
+    }
   },
   mutations: {
     changeMainHeader: (state, payload) => {
       state.mainHeader = payload;
+    },
+    setStationExist:(state,payload)=>{
+      state.stationsExist=payload;
     }
   }
 })
