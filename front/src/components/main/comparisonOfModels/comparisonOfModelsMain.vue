@@ -9,7 +9,6 @@
 
       },
       methods:{
-
       },
       mounted:function () {
       }
@@ -17,5 +16,4 @@
 </script>
 
 <style scoped>
-
 </style>

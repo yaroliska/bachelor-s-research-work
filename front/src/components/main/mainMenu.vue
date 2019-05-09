@@ -3,8 +3,8 @@
     <v-navigation-drawer class="v-nav" persistent :mini-variant="miniVariant" :clipped="clipped" v-model="drawer"
                          enable-resize-watcher fixed app>
       <v-list>
-        <router-link to="comparisonOfModels">
-          <v-list-tile value="true">
+        <router-link to="comparisonOfModels" >
+          <v-list-tile value="true" v-on:click="changeMainHeader('Сравнение моделей')">
             <v-list-tile-action>
               <v-icon>bar_chart</v-icon>
             </v-list-tile-action>
@@ -15,7 +15,7 @@
         </router-link>
 
         <router-link to="constructorMainPage">
-          <v-list-tile value="true">
+          <v-list-tile value="true" v-on:click="changeMainHeader('Конструирование')">
             <v-list-tile-action>
               <v-icon>create</v-icon>
             </v-list-tile-action>
@@ -26,17 +26,17 @@
         </router-link>
 
        <router-link to="userGuid">
-          <v-list-tile value="true">
+          <v-list-tile value="true" v-on:click="changeMainHeader('Руководство пользователя')">
             <v-list-tile-action>
               <v-icon>school</v-icon>
             </v-list-tile-action>
             <v-list-tile-content>
-              <v-list-tile-title>Руководство пользователя</v-list-tile-title>
+              <v-list-tile-title >Руководство пользователя</v-list-tile-title>
             </v-list-tile-content>
           </v-list-tile>
         </router-link>
-        <router-link to="aboutProgram">
-          <v-list-tile value="true">
+        <router-link to="aboutProgram" >
+          <v-list-tile value="true" v-on:click="changeMainHeader('О программе')">
             <v-list-tile-action>
               <v-icon>train</v-icon>
             </v-list-tile-action>
@@ -55,7 +55,7 @@
       <v-btn icon @click.stop="clipped = !clipped">
         <v-icon>web</v-icon>
       </v-btn>
-      <v-toolbar-title id="v-toolbar-title-header" v-on:change="changeHeader">Редактор путевого развития</v-toolbar-title>
+      <v-toolbar-title id="v-toolbar-title-header" >{{mainHeader}}</v-toolbar-title>
     </v-toolbar>
   </div>
 </template>
@@ -75,12 +75,17 @@
         miniVariant: false,
         right: true,
         rightDrawer: false,
-        title: 'Vuetify.js'
+        title: 'Vuetify.js',
+      }
+    },
+    computed:{
+      mainHeader(){
+        return this.$store.state.mainHeader;
       }
     },
     methods: {
-      changeHeader:function (text) {
-        document.getElementById('v-toolbar-title-header').innerText="text";
+      changeMainHeader:function (text) {
+        this.$store.commit('changeMainHeader', text);
       }
     }
   }

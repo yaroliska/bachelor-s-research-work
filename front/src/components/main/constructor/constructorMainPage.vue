@@ -28,7 +28,8 @@
         }
       }
     },
-    methods: {},
+    methods: {
+    },
       //DATABASE FUNCTIONS
       beforeCreate() {
         function checkStationAvailability(){
@@ -48,7 +49,6 @@
         //если нет то перенаправить пользователя на другую страницу
       },
     mounted:function () {
-      document.getElementById('v-toolbar-title-header').innerText="Руководство пользователя";
     }
   }
 </script>

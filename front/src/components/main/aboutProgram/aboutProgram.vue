@@ -12,7 +12,6 @@
 
       },
       mounted:function () {
-        document.getElementById('v-toolbar-title-header').innerText="О программе";
       }
     }
 </script>

@@ -9,10 +9,6 @@
 
       },
       methods:{
-        changeHeader: function() {
-          // генерируем событие 'remove' и передаём id элемента
-          this.$emit('change', 'Руководство пользователя');
-        }
       },
       mounted:function () {
       }
