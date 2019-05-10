@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="items_list">
-      <router-link to="addNewStation">
+      <router-link to="addNewVersion">
         <div class="addNewItem circle-group"
              v-on:click="changeMainHeader('Нажмите <- в браузере, чтобы вернуться назад')">
           <div class="circle circle__addNewItem"></div>
@@ -9,40 +9,39 @@
         </div>
       </router-link>
 
-      <div class="circle-group" v-on:click="chooseStation" v-if="checkStationAvailabilityFromStore"
-           v-for="station in listOfStations">
-        <router-link class="flex-column-center" to="constructorVersionsPage">
+      <div class="circle-group" v-on:click="chooseVersion" v-if="checkVersionAvailabilityFromStore"
+           v-for="version in listOfVersions">
+        <router-link class="flex-column-center" to="editor">
           <div class="circle"></div>
           <div class="under-circle">{{station.name}}</div>
         </router-link>
       </div>
-
     </div>
   </div>
 </template>
 
 <script>
-
   const axios = require('axios');
-
   export default {
+    name: "constructorVersionsPage",
     data() {
       return {
-        listOfStations: [], //список станций если они есть
-        station: { //объект станции, который будем доставать из базы данных
-          name: '',
-          description: '',
-          id: 0
+        listOfVersions: [], //список станций если они есть
+        version: { //объект версии, который будем доставать из базы данных
+          creator: '',
+          date: '',
+          station: '',
+          id: ''
         }
       }
     },
     methods: {
-      chooseStation(event) {
-        console.log('chooseStation function(event)');
-        this.changeMainHeader("Создайте новую версию или выберите из существующих");
+      chooseVersion(event) {
+        console.log('chooseVersion function(event)');
+        this.changeMainHeader("Нажмите на знак вопроса, чтобы узнать подробнее о возможностях редактора, или откройте руководство пользователя!");
         //записали в состояние какую станцию выбрали
-        this.$store.state.constructorState.stationName = this.returnInnerTextFromCircleGroup(event);
-        //здесь еще должен записаться ID станции
+        this.$store.state.constructorState.versionDate = this.returnInnerTextFromCircleGroup(event);
+        //здесь еще должен записаться ID версии
         console.log('переходим на' + this.$store.state.constructorState.stationName);
       },
 
@@ -67,36 +66,35 @@
         this.$store.commit('changeMainHeader', text);
       },
 
-      checkStationAvailabilityFromStore: function () {
-        console.log('checkStationAvailabilityFromStore function');
-        console.log(this.$store.state.stationsExist);
-        if (this.$store.state.stationsExist === true) {
+      checkVersionAvailabilityFromStore: function () {
+        console.log('checkVersionAvailabilityFromStore function');
+        console.log(this.$store.state.versionsExist);
+        if (this.$store.state.versionsExist === true) {
           return true;
         }
         else {
-          this.$store.commit('changeMainHeader', 'Вы еще не создали ни одной станции! Начните работу, нажав на Создать новую');
+          this.$store.commit('changeMainHeader', 'Вы еще не создали ни одной версии, для данной станции! Начните работу!');
           return false;
         }
       },
 
       //DATABASE FUNCTIONS
-      checkStationAvailability: function () {
-        console.log('checkStationAvailability function');
+      checkVersionAvailability: function () {
+        console.log('checkVersionAvailability function');
         let self = this;
-        console.log('checkStationAvailability function');
-        axios.get('http://localhost:8081/api/station')
+        axios.get('http://localhost:8081/api/global_version')
           .then(function (response) {
             console.log(response.data);
             console.log(response.data.length);
             if (response.data.length > 0) {
               console.log('response.data');
-              self.listOfStations = response.data;
-              self.$store.state.stationsExist = true;
+              self.listOfVersions= response.data;
+              self.$store.state.versionsExist = true;
               console.log('получили данные');
             }
             else {
               console.log('данных нет');
-              self.$store.state.stationsExist = false;
+              self.$store.state.versionsExist = false;
             }
           })
           .catch(function (error) {
@@ -106,10 +104,10 @@
       }
     },
     mounted: function () {
-      console.log('mounted');
-      this.checkStationAvailability();
-      console.log(this.listOfStations);
-      this.$store.commit('changeMainHeader', 'Выберите существующую станцию, или создайте новую!');
+      console.log('mounted constructorVersionPage');
+      this.checkVersionAvailability();
+      console.log(this.listOfVersions);
+      this.$store.commit('changeMainHeader', 'Выберите существующую версию, или создайте новую! Для возврата нажмите <- в браузере');
     }
   }
 </script>
@@ -164,8 +162,9 @@
     padding-top: 10px;
     color: var(--green-darkest);
   }
+
   /*данный класс должен быть вынесен*/
-  .flex-column-center{
+  .flex-column-center {
     display: flex;
     flex-direction: column;
     justify-content: center;
