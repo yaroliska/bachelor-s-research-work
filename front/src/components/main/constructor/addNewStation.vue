@@ -5,14 +5,34 @@
       <input type="text" id="add-new__input_station-name" class="add-new__input" name="name" required minlength="2" maxlength="30">
       <div class="add-new__label">Добавьте описание новой станции, если это необходимо</div>
       <textarea type="text" id="add-new__input_description" class="add-new__input add-new__input_description" name="name" required minlength="10"></textarea>
-      <button class="button_medium">Сохранить</button>
+      <button class="button_medium" v-on:click="saveNewStation">Сохранить</button>
     </div>
   </div>
 </template>
 
 <script>
+  import fieldsValidator from '../javascript/fieldsValidation.js';
+  let fieldValidator =new fieldsValidator;
     export default {
-        name: "addNewStation"
+      name: "addNewStation",
+
+      methods:{
+        saveNewStation:function () {
+          let name =console.log(document.getElementById('add-new__input_station-name').value);
+          let description =console.log(document.getElementById('add-new__input_description').value);
+         if(fieldValidator.checkStationNameInput(name)&&fieldValidator.checkDescriptionInput(description)){
+            //если все норма -> отправляем данные на сервер
+            //меняем состояние шины данных
+          }else {
+            //плюем ошибку что, что-то не так
+          }
+        },
+
+        //DATABASE FUNCTIONS
+        postNewStation(){
+
+        }
+      }
     }
 </script>
 
