@@ -2,7 +2,7 @@
   <div>
     <div class="items_list">
       <router-link to="addNewStation" >
-      <div class="addNewItem circle-group" >
+      <div class="addNewItem circle-group" v-on:click="changeMainHeader('Нажмите <- в браузере, чтобы вернуться назад')" >
         <div class="circle circle__addNewItem"></div>
         <div class="under-circle">Создать новую</div>
       </div>
@@ -46,13 +46,21 @@
     methods: {
 
 
+
       //STORE METHODS
+      changeMainHeader:function (text) {
+        this.$store.commit('changeMainHeader', text);
+      },
+
       checkStationAvailabilityFromStore:function(){
         console.log(this.$store.state.stationsExist);
         if (this.$store.state.stationsExist===true){
           return true;
         }
-        else return false;
+        else {
+          this.$store.commit('changeMainHeader', 'Вы еще не создали ни одной станции! Начните работу, нажав на Создать новую' );
+          return false;
+        }
       },
 
       //DATABASE FUNCTIONS
@@ -84,6 +92,7 @@
         console.log('mounted');
         this.checkStationAvailability();
         console.log(this.listOfStations);
+        this.$store.commit('changeMainHeader', 'Выберите существующую станцию, или создайте новую!');
       }
     }
 </script>
