@@ -5,7 +5,9 @@
       <input type="text" id="add-new__input_station-name" class="add-new__input" name="name" required minlength="2" maxlength="30">
       <div class="add-new__label">Добавьте описание новой станции, если это необходимо</div>
       <textarea type="text" id="add-new__input_description" class="add-new__input add-new__input_description" name="name" required minlength="10"></textarea>
-      <button class="button_medium" v-on:click="saveNewStation">Сохранить</button>
+      <router-link to="constructorMainPage" class="flex-row-center">
+        <button class="button_medium" v-on:click="saveNewStation">Сохранить</button>
+      </router-link>
     </div>
   </div>
 </template>
@@ -13,24 +15,47 @@
 <script>
   import fieldsValidator from '../javascript/fieldsValidation.js';
   let fieldValidator =new fieldsValidator;
+  const axios = require('axios');
     export default {
       name: "addNewStation",
-
+      data() {
+        return {
+          station: { //объект станции, который будем доставать из базы данных
+            name: '',
+            description: '',
+            id:'',
+          }
+        }
+      },
       methods:{
         saveNewStation:function () {
-          let name =console.log(document.getElementById('add-new__input_station-name').value);
-          let description =console.log(document.getElementById('add-new__input_description').value);
+          let name = document.getElementById('add-new__input_station-name').value;
+          let description =document.getElementById('add-new__input_description').value;
          if(fieldValidator.checkStationNameInput(name)&&fieldValidator.checkDescriptionInput(description)){
             //если все норма -> отправляем данные на сервер
+           console.log(name);
+           console.log(description);
+           this.station.name =name;
+           this.station.description=description;
+           console.log(this.station);
+           this.postNewStation();
             //меняем состояние шины данных
           }else {
-            //плюем ошибку что, что-то не так
+            //this.$store.state.exception ='текст ошибки';
+           //в constructorMainPage => if(ошибка существует -> выплюнуть ее в виде всплывающего уведомления
           }
         },
 
+
+        //STORE FUNCTIONS
+
+
         //DATABASE FUNCTIONS
         postNewStation(){
-
+          axios.post('http://localhost:8081/api/station', this.station)
+          .then(function (response) {
+            console.log(response);
+          })
         }
       }
     }
@@ -90,6 +115,13 @@
     background-color: var(--green-light);
     color:white;
     outline: none;
+  }
+
+  /*данный класс должен быть вынесен*/
+  .flex-row-center{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
   }
 
 </style>

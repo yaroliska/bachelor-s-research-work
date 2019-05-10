@@ -10,4 +10,11 @@ export default class fieldsValidation {
     return true;
   }
 
+  checkCreatorFIO(string){
+    return true;
+  }
+  checkVersionShortName(string){
+    return true;
+  }
+
 }
