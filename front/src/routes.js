@@ -21,12 +21,10 @@ export default [
       {
         path:'constructorMainPage',
         component:constructorMainPage,
-        children:[
-          {
-            path:'addNewStation',
-            component:addNewStation
-          }
-        ]
+      },
+      {
+        path:'addNewStation',
+        component:addNewStation
       },
       {
         path:'userGuid',

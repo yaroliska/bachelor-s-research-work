@@ -1,13 +1,10 @@
 <template>
-    <div>
-      <h1>Вы еще не создали ни одной станции</h1>
-      <button>Добавить</button>
-    </div>
+    <div>Я станция</div>
 </template>
 
 <script>
     export default {
-        name: "noStation"
+        name: "addNewStation"
     }
 </script>
 

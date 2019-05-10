@@ -1,11 +1,13 @@
 <template>
   <div>
     <div class="items_list">
-      <div class="addNewItem circle-group">
-        <div class="circle"></div>
+      <router-link to="addNewStation" >
+      <div class="addNewItem circle-group" >
+        <div class="circle circle__addNewItem"></div>
         <div class="under-circle">Создать новую</div>
       </div>
-      <div class ="circle-group" v-for="station in listOfStations">
+      </router-link>
+      <div class ="circle-group" v-if="checkStationAvailabilityFromStore" v-for="station in listOfStations">
         <div class="circle"></div>
         <div class="under-circle">{{station.name}}</div>
       </div>
@@ -42,9 +44,20 @@
 
     },
     methods: {
+
+
+      //STORE METHODS
+      checkStationAvailabilityFromStore:function(){
+        console.log(this.$store.state.stationsExist);
+        if (this.$store.state.stationsExist===true){
+          return true;
+        }
+        else return false;
+      },
+
       //DATABASE FUNCTIONS
       checkStationAvailability: function () {
-        var self = this;
+        let self = this;
         console.log('checkStationAvailability function');
         axios.get('http://localhost:8081/api/station')
           .then(function (response) {
@@ -90,9 +103,9 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: space-around;
+    justify-content: start;
     padding-top: 50px;
-    padding-left: 5px;
+    padding-left: 35px;
     padding-right: 5px;
   }
 
@@ -108,6 +121,16 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding-right: 30px;
   }
-
+  .circle__addNewItem{
+    background-color: white;
+    background-size: cover;
+    background-image: url("/static/addNewItemCircle.png");
+  }
+  .under-circle{
+    font-size: 20px;
+    padding-top: 10px;
+    color: var(--green-darkest);
+  }
 </style>
