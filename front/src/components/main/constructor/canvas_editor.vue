@@ -24,6 +24,9 @@
           step: 20,
           canvas:{
           },
+          icanvas:{
+
+          },
           path:{
             number:'2',
             xbegin:'',
@@ -47,15 +50,31 @@
         },
         iHandleMouseUp:function (event) {
 
-        }
+        },
 
+        //MOUNTED FUNCTIONS
+        //получаем данные с канваса
+        getCanvas:function(){
+          this.canvas.width = document.getElementById("canvas").width;
+          this.canvas.height =  document.getElementById("canvas").height;
+          this.canvas.ctx =  document.getElementById("canvas").getContext("2d");
+        },
+        //получаем данные с интерактивного канваса
+        getICanvas:function () {
+          this.icanvas.width = document.getElementById("interactive-canvas").width;
+          this.icanvas.height =  document.getElementById("interactive-canvas").height;
+          this.icanvas.ctx =  document.getElementById("interactive-canvas").getContext("2d");
+        },
+        toStart:function () {
+
+        }
       },
       mounted: function () {
         //получаем данные с канваса при загрузке
-       // this.getCanvas();
-        //this.getICanvas();
+        this.getCanvas();
+        this.getICanvas();
         //выполняем все необходимые запросы к бд и отрисовки перед началом работы
-        //this.toStart();
+        this.toStart();
       }
     }
 
