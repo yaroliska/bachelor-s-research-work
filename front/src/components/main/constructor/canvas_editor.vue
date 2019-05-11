@@ -10,15 +10,8 @@
 
 <script>
   const axios = require('axios');
-
     export default {
-      props: {
-        state:{
-          editMode:String,
-          required: true,
-          default: 'default'
-        }
-      },
+
       data: function () {
         return {
           mouse: {
@@ -55,6 +48,7 @@
         iHandleMouseUp:function (event) {
 
         }
+
       },
       mounted: function () {
         //получаем данные с канваса при загрузке

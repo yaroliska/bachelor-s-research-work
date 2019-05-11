@@ -4,37 +4,37 @@
       <!--//РЕДАКТОР ПУТЕЙ-->
       <div class="path toolbar_part">
         <button class="toolbar_part_button" id="path_pallet_btn" v-on:click="editing_mode">Редактор Путей</button>
-        <button type="button" class="toolbar_part_icon toolbar_part_path_btn" id="choose-path">
-          <v-icon class="v-icon">navigation</v-icon>
+        <button type="button" class="toolbar_part_icon toolbar_part_path_btn">
+          <v-icon class="v-icon" id="choose-path" v-on:click="chooseTool">navigation</v-icon>
         </button>
-        <button type="button" class="toolbar_part_icon toolbar_part_path_btn" id="add-path">
-          <v-icon class="v-icon">remove</v-icon>
+        <button type="button" class="toolbar_part_icon toolbar_part_path_btn" >
+          <v-icon class="v-icon" id="add-path" v-on:click="chooseTool">remove</v-icon>
         </button>
-        <button type="button" class="toolbar_part_icon toolbar_part_path_btn" id="deadlock">
-          <v-icon class="v-icon">space_bar</v-icon>
+        <button type="button" class="toolbar_part_icon toolbar_part_path_btn" >
+          <v-icon class="v-icon" id="deadlock" v-on:click="chooseTool">space_bar</v-icon>
         </button>
-        <button type="button" class="toolbar_part_icon toolbar_part_path_btn" id="path-settings">
-          <v-icon class="v-icon">build</v-icon>
+        <button type="button" class="toolbar_part_icon toolbar_part_path_btn" >
+          <v-icon class="v-icon" id="path-settings" v-on:click="chooseTool">build</v-icon>
         </button>
-        <button type="button" class="toolbar_part_icon toolbar_part_path_btn" id="delete-path">
-          <v-icon class="v-icon">clear</v-icon>
+        <button type="button" class="toolbar_part_icon toolbar_part_path_btn" >
+          <v-icon class="v-icon" id="delete-path" v-on:click="chooseTool">clear</v-icon>
         </button>
       </div>
 
       <!--//РЕДАКТОР СТРЕЛОК-->
       <div class="arrow toolbar_part">
         <button class="toolbar_part_button" id="arrow_pallet_btn" v-on:click="editing_mode">Редактор стрелок</button>
-        <button type="button" class="toolbar_part_icon toolbar_part_arrow_btn" id="choose-arrow">
-          <v-icon class="v-icon">navigation</v-icon>
+        <button type="button" class="toolbar_part_icon toolbar_part_arrow_btn" >
+          <v-icon class="v-icon" id="choose-arrow" v-on:click="chooseTool">navigation</v-icon>
         </button>
-        <button type="button" class="toolbar_part_icon toolbar_part_arrow_btn" id="add-arrow">
-          <v-icon class="v-icon">call_made</v-icon>
+        <button type="button" class="toolbar_part_icon toolbar_part_arrow_btn" >
+          <v-icon class="v-icon" id="add-arrow" v-on:click="chooseTool">call_made</v-icon>
         </button>
-        <button type="button" class="toolbar_part_icon toolbar_part_arrow_btn" id="arrow-settings">
-          <v-icon class="v-icon">build</v-icon>
+        <button type="button" class="toolbar_part_icon toolbar_part_arrow_btn" >
+          <v-icon class="v-icon" id="arrow-settings" v-on:click="chooseTool">build</v-icon>
         </button>
-        <button type="button" class="toolbar_part_icon toolbar_part_arrow_btn" id="delete-arrow">
-          <v-icon class="v-icon">clear</v-icon>
+        <button type="button" class="toolbar_part_icon toolbar_part_arrow_btn" >
+          <v-icon class="v-icon" id="delete-arrow" v-on:click="chooseTool">clear</v-icon>
         </button>
         <!--
         -->
@@ -43,8 +43,8 @@
       <div class="traffic-light toolbar_part">
         <button class="toolbar_part_button" id="traffic-light_pallet_btn" v-on:click="editing_mode">Редактор светофоров
         </button>
-        <button type="button" class="toolbar_part_icon toolbar_part_traffic-light_btn" id="test1">
-          <v-icon class="v-icon">navigation</v-icon>
+        <button type="button" class="toolbar_part_icon toolbar_part_traffic-light_btn" >
+          <v-icon class="v-icon" id="test1" v-on:click="chooseTool">navigation</v-icon>
         </button>
       </div>
 
@@ -53,12 +53,12 @@
         <button class="toolbar_part_button" id="infrastructure_pallet_btn" v-on:click="editing_mode">Редактор объектов
           инфраструктуры
         </button>
-        <button type="button" class="toolbar_part_icon toolbar_part_infrastructure_btn" id="test2">
-          <v-icon class="v-icon">navigation</v-icon>
+        <button type="button" class="toolbar_part_icon toolbar_part_infrastructure_btn" >
+          <v-icon class="v-icon" id="test2" v-on:click="chooseTool">navigation</v-icon>
         </button>
       </div>
     </div>
-    <canvas_editor :state="state"></canvas_editor>
+    <canvas_editor></canvas_editor>
   </div>
 </template>
 
@@ -83,6 +83,8 @@
       }
     },
     methods: {
+      //PANELS FUNCTIONS
+      //определяет какая панель нажата, меняет режим редактирования в store, показывает кнопки
       editing_mode: function (event) {
         //ВЫБРАЛИ ПАНЕЛЬ УПРАВЛЕНИЯ ПУТЯМИ
         if (event.srcElement.id === 'path_pallet_btn') {
@@ -149,7 +151,6 @@
           }
         }
       },
-
       //находит предыдущую панель, которая была активна и удаляет из нее все кнопки
       checkEditorPalletOn: function () {
         if (document.getElementsByClassName('editor_pallet-on').length > 0) {
@@ -166,7 +167,6 @@
           document.getElementsByClassName('editor_pallet-on')[0].classList.remove('editor_pallet-on');
         }
       },
-
       //метод который возвращает нам id для кнопок панели конкретного режима редактирования
       returnBtnClassForPallet:function (panelId) {
         //на вход приходит path_pallet_btn, arrow_pallet_btn, traffic-light_pallet_btn, infrastructure_pallet_btn
@@ -176,21 +176,23 @@
         let type ='path'; // данный параметр должен быть вытащен из данных на входе
         let className=`toolbar_part_${type}_btn`;
         return className;
+      },
+
+      //TOOLS FUNCTIONS
+      chooseTool:function (event) {
+        //изменили состояние редактора в зависимости от того какая кнопка нажата
+        this.$store.state.constructorState.editorState.typeOfTool = event.srcElement.id;
       }
-
-
     },
     mounted:function () {
       //при открытии данной компоненты в store должны быть уже записаны название станции, ее id, название версии и её id
       //заполняем store для тестирования
-
       this.$store.state.constructorState.stationName="Белозерки";//тут должен быть id станции, которую мы выбрали
       this.$store.state.constructorState.stationId =9999;
       this.$store.state.constructorState.versionDate='11/05/2019';
       this.$store.state.constructorState.versionId=9999;
       this.$store.state.constructorState.mainHeader="Белозерки (версия 11/05/2019)";
     }
-
   }
 </script>
 
