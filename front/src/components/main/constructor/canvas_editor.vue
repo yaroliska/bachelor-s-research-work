@@ -60,17 +60,18 @@
         iHandleMouseDownPath:function(event){
           //если мы хотим выделить путь
           if(this.$store.state.constructorState.editorState.editorMode.typeOfTool==="choose-path"){
-
+            //сюда надо перенести настройки пути (по выделению пути должно разворачиваться небольшое окно справа вверху с настройками)
+            //сюда надо
           }
           //если мы хотим нарисовать путь
           else if(this.$store.state.constructorState.editorState.editorMode.typeOfTool==="add-path"){
 
           }
-          //
+          //если мы хотим нарисовать тупик
           else if(this.$store.state.constructorState.editorState.editorMode.typeOfTool==="deadlock"){
 
           }
-          //
+          //если мы хотим настроить путь
           else if(this.$store.state.constructorState.editorState.editorMode.typeOfTool==="path-settings"){
 
           }
