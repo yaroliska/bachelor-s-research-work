@@ -40,20 +40,39 @@
 
       },
       methods:{
+        //MOUSE
         iHandleMouseMove:function(event){
 
         },
         iHandleMouseDown:function (event){
           if(this.$store.state.constructorState.editorState.editorMode.nameOfMode==='pathEditing'){
-            iHandleMouseDownPath(){
-
-            }
+            this.iHandleMouseDownPath(event);
           }
         },
         iHandleMouseUp:function (event){
           if(this.$store.state.constructorState.editorState.editorMode.nameOfMode==='pathEditing'){
             //запускаем метод, который обрабатывает панель путей
             //path
+          }
+        },
+
+        //PATH FUNCTIONS
+        iHandleMouseDownPath:function(event){
+          //если мы хотим выделить путь
+          if(this.$store.state.constructorState.editorState.editorMode.typeOfTool==="choose-path"){
+
+          }
+          //если мы хотим нарисовать путь
+          else if(this.$store.state.constructorState.editorState.editorMode.typeOfTool==="add-path"){
+
+          }
+          //
+          else if(this.$store.state.constructorState.editorState.editorMode.typeOfTool==="deadlock"){
+
+          }
+          //
+          else if(this.$store.state.constructorState.editorState.editorMode.typeOfTool==="path-settings"){
+
           }
         },
 
