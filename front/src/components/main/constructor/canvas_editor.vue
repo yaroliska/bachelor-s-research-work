@@ -26,7 +26,7 @@
           icanvas:{},
           helper:{},
           path:{
-            number:'2',
+            number:'0',
             xbegin:'',
             ybegin:'',
             xend:'',
@@ -45,8 +45,9 @@
         },
         iHandleMouseDown:function (event){
           if(this.$store.state.constructorState.editorState.editorMode.nameOfMode==='pathEditing'){
-            //выделить путь
-            //
+            iHandleMouseDownPath(){
+
+            }
           }
         },
         iHandleMouseUp:function (event){
@@ -69,12 +70,14 @@
           this.icanvas.height =  document.getElementById("interactive-canvas").height;
           this.icanvas.ctx =  document.getElementById("interactive-canvas").getContext("2d");
         },
+        //вызывается в mounted и подготовливает все необходимое к началу работы
         toStart:function () {
           let painter = new Painter(20,this.canvas, this.canvas.ctx);
           let i_painer = new Painter(20,this.icanvas, this.icanvas.ctx);
           this.helper.painter=painter;
           this.helper.ipainter=i_painer;
           painter.drawDots();
+          //забрать пути из базы данных
         }
       },
       mounted: function () {

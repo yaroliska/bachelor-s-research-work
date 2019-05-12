@@ -24,7 +24,13 @@ export default class Path {
       return false;
     else return true;
   }
-
-  //
-
+  setPark(park){
+    this.park=park;
+  }
+  setNumber(number){
+    this.number=number;
+  }
+  setArrows(arrows){
+    this.arrows=arrows;
+  }
 }
