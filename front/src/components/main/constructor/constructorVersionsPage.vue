@@ -13,7 +13,7 @@
            v-for="version in listOfVersions">
         <router-link class="flex-column-center" to="editor">
           <div class="circle"></div>
-          <div class="under-circle">{{station.name}}</div>
+          <div class="under-circle">{{version.name}}</div>
         </router-link>
       </div>
     </div>
@@ -31,7 +31,8 @@
           creator: '',
           date: '',
           station: '',
-          id: ''
+          id: '',
+          name: ''
         }
       }
     },
@@ -84,11 +85,12 @@
         let self = this;
         axios.get('http://localhost:8081/api/global_version')
           .then(function (response) {
-            console.log(response.data);
-            console.log(response.data.length);
+            // console.log(response.data);
+            // console.log(response.data.length);
             if (response.data.length > 0) {
               console.log('response.data');
               self.listOfVersions= response.data;
+              console.log(self.listOfVersions);
               self.$store.state.versionsExist = true;
               console.log('получили данные');
             }

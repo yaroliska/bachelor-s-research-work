@@ -5,8 +5,8 @@ INSERT INTO station (name, description) VALUES ('Белозерки', 'Сама�
 INSERT INTO station (name, description) VALUES ('Марьино', 'Самая хорошая станция');
 INSERT INTO station (name, description) VALUES ('Кинель', 'Сортировочная станция');
 
-INSERT INTO global_version (creator,date,description, station_id) VALUES ('Вася', TO_DATE('14.12.2018', 'DD/MM/YYYY'),'Первая версия путевого развития', 1);
-INSERT INTO global_version (creator,date,description, station_id) VALUES ('Вася', TO_DATE('15.12.2018', 'DD/MM/YYYY'),'Исправлен съезд', 1);
+INSERT INTO global_version (creator,date,description, station_id) VALUES ('Вася', TO_DATE('14.12.2018', 'DD/MM/YYYY'),'Первая версия путевого развития', 1, 'версия 1');
+INSERT INTO global_version (creator,date,description, station_id) VALUES ('Вася', TO_DATE('15.12.2018', 'DD/MM/YYYY'),'Исправлен съезд', 1, 'версия 2');
 
 INSERT INTO arrow_type (name) VALUES ('Симметричный тройной');
 INSERT INTO arrow_type (name) VALUES ('Несимметричный односторонний');
