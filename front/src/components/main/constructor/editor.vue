@@ -207,6 +207,9 @@
     flex-direction: row;
     justify-content: flex-start;
     background-color: var(--green-darkest);
+    position: fixed;
+    z-index: 3;
+    width:100%;
   }
 
   .toolbar_part {

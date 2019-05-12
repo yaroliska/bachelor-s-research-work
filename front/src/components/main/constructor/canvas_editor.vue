@@ -1,17 +1,17 @@
 <template>
   <div>
-    <canvas id="canvas" width="1000px" height="1000px">
+    <canvas id="canvas" width="1380px" height="1000px">
   </canvas>
-  <canvas id="interactive-canvas" v-on:mousedown="iHandleMouseDown" v-on:mouseup="iHandleMouseUp" v-on:mousemove="iHandleMouseMove" width="1000px" height="1000px">
+  <canvas id="interactive-canvas" v-on:mousedown="iHandleMouseDown" v-on:mouseup="iHandleMouseUp" v-on:mousemove="iHandleMouseMove" width="1380px" height="1000px">
   </canvas>
 
   </div>
 </template>
 
 <script>
+  import Painter from '../javascript/editor/Painter.js';
   const axios = require('axios');
     export default {
-
       data: function () {
         return {
           mouse: {
@@ -22,11 +22,9 @@
             down: false
           },
           step: 20,
-          canvas:{
-          },
-          icanvas:{
-
-          },
+          canvas:{},
+          icanvas:{},
+          helper:{},
           path:{
             number:'2',
             xbegin:'',
@@ -45,11 +43,17 @@
         iHandleMouseMove:function(event){
 
         },
-        iHandleMouseDown:function (event) {
-
+        iHandleMouseDown:function (event){
+          if(this.$store.state.constructorState.editorState.editorMode.nameOfMode==='pathEditing'){
+            //выделить путь
+            //
+          }
         },
-        iHandleMouseUp:function (event) {
-
+        iHandleMouseUp:function (event){
+          if(this.$store.state.constructorState.editorState.editorMode.nameOfMode==='pathEditing'){
+            //запускаем метод, который обрабатывает панель путей
+            //path
+          }
         },
 
         //MOUNTED FUNCTIONS
@@ -66,7 +70,11 @@
           this.icanvas.ctx =  document.getElementById("interactive-canvas").getContext("2d");
         },
         toStart:function () {
-
+          let painter = new Painter(20,this.canvas, this.canvas.ctx);
+          let i_painer = new Painter(20,this.icanvas, this.icanvas.ctx);
+          this.helper.painter=painter;
+          this.helper.ipainter=i_painer;
+          painter.drawDots();
         }
       },
       mounted: function () {
@@ -85,12 +93,14 @@
     position: relative;
     float: left;
     border:1px solid #d3d3d3;
+    margin-top:42px;
   }
   #interactive-canvas{
-    position: relative;
-    float:left;
-    margin-left: -1002px;
-    z-index:2;
-    border:1px solid #d3d3d3;
+    position: absolute;
+    /* float: left; */
+    z-index: 2;
+    border: 1px solid #d3d3d3;
+    margin-top: 42px;
+    margin-left: -1382px;
   }
 </style>

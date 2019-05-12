@@ -121,6 +121,9 @@
   div.v-list__tile {
     color: white !important;
   }
+  div.v-toolbar__content{
+    z-index:4!important;
+  }
 
   div.v-toolbar__content {
     color: white;
