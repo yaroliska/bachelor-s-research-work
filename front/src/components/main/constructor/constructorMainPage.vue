@@ -13,7 +13,7 @@
            v-for="station in listOfStations">
         <router-link class="flex-column-center" to="constructorVersionsPage">
           <div class="circle"></div>
-          <div class="under-circle">{{station.name}}</div>
+          <div class="under-circle" :id="station.id" >{{station.name}}</div>
         </router-link>
       </div>
 
@@ -42,6 +42,7 @@
         this.changeMainHeader("Создайте новую версию или выберите из существующих");
         //записали в состояние какую станцию выбрали
         this.$store.state.constructorState.stationName = this.returnInnerTextFromCircleGroup(event);
+        console.log(event);
         //здесь еще должен записаться ID станции
         console.log('переходим на' + this.$store.state.constructorState.stationName);
       },
@@ -51,13 +52,28 @@
       returnInnerTextFromCircleGroup(event) {
         console.log('returnInnerTextFromCircleGroup function');
         if (event.srcElement.classList.contains('under-circle')) {
+          this.stationToStorage(parseInt(event.srcElement.id));
           return event.srcElement.innerText;
         }
         else if (event.srcElement.classList.contains('circle')) {
+          this.stationToStorage(parseInt(event.srcElement.nextSibling.nextElementSibling.id));
           return event.srcElement.nextSibling.nextElementSibling.innerText;
         }
         else if (event.srcElement.classList.contains('circle-group')) {
+          this.stationToStorage(parseInt(event.srcElement.lastChild.id));
           return event.srcElement.lastChild.innerText;
+        }
+      },
+
+
+    //STORE METHODS
+    stationToStorage: function (id) {
+      for (let st of this.listOfStations){
+        if (st.id === id) {
+          console.log('Выбрана станция:');
+          console.log(st);
+          this.$store.state.constructorState.station = st;
+          }
         }
       },
 

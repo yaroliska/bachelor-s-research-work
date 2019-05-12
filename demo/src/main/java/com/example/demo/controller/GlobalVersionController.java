@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
-import java.util.List;
+import java.util.*;
 
 @RestController
 @RequestMapping("/api/global_version")
@@ -16,19 +16,30 @@ public class GlobalVersionController {
     @Autowired
     private GlobalVersionRepository globalVersionRepository;
 
+//    @GetMapping
+//    @CrossOrigin("*")
+//    public List<GlobalVersion> getGlobalVersion() {
+//        //GlobalVersion gv =new GlobalVersion("Вася", new Date(876543456),"rriv");
+//        // globalVersionRepository.save(gv);
+//        //System.out.println("inserted");
+//        return globalVersionRepository.findAll();
+//    }
     @GetMapping
     @CrossOrigin("*")
-    public List<GlobalVersion> getGlobalVersion() {
-        //GlobalVersion gv =new GlobalVersion("Вася", new Date(876543456),"rriv");
-       // globalVersionRepository.save(gv);
-        //System.out.println("inserted");
-        return globalVersionRepository.findAll();
+    public List<GlobalVersion> getGlobalVersion(int stationId) {
+         List<GlobalVersion> list = new LinkedList<>();
+         for (GlobalVersion gv : globalVersionRepository.findAll()){
+             if (gv.getStation().getId() == stationId)
+                 list.add(gv);
+         }
+        return list;
     }
 
     @PostMapping
     @CrossOrigin("*")
-    public void addGlobalVersion(@RequestBody GlobalVersion globalVersion) {
+    public Long addGlobalVersion(@RequestBody GlobalVersion globalVersion) {
         globalVersionRepository.save(globalVersion);
+        return globalVersion.getId();
     }
 
 }

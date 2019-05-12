@@ -9,8 +9,7 @@ export const store = new Vuex.Store({
     stationsExist:null,
     versionsExist:null,
     constructorState:{
-      stationId:null,
-      stationName:null,
+      station:null,
       versionId:null,
       versionDate:null,
       editorState:{

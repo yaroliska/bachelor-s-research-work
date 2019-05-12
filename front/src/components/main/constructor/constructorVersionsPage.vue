@@ -42,8 +42,9 @@
         this.changeMainHeader("Нажмите на знак вопроса, чтобы узнать подробнее о возможностях редактора, или откройте руководство пользователя!");
         //записали в состояние какую станцию выбрали
         this.$store.state.constructorState.versionDate = this.returnInnerTextFromCircleGroup(event);
+        console.log(event.srcElement.data);
         //здесь еще должен записаться ID версии
-        console.log('переходим на' + this.$store.state.constructorState.stationName);
+        console.log('переходим на версию ' + this.$store.state.constructorState.versionId);
       },
 
 
@@ -51,6 +52,7 @@
       returnInnerTextFromCircleGroup(event) {
         console.log('returnInnerTextFromCircleGroup function');
         if (event.srcElement.classList.contains('under-circle')) {
+          //TODO this.$store.state.constructorState.stationId=event.srcElement.id; - по аналогии
           return event.srcElement.innerText;
         }
         else if (event.srcElement.classList.contains('circle')) {
@@ -83,7 +85,7 @@
       checkVersionAvailability: function () {
         console.log('checkVersionAvailability function');
         let self = this;
-        axios.get('http://localhost:8081/api/global_version')
+        axios.get('http://localhost:8081/api/global_version?stationId='+this.$store.state.constructorState.station.id)
           .then(function (response) {
             // console.log(response.data);
             // console.log(response.data.length);

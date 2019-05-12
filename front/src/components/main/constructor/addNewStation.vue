@@ -40,6 +40,7 @@
            console.log(this.station);
            this.postNewStation();
             //меняем состояние шины данных
+           this.$store.state.constructorState.stationName=name;
           }else {
             //this.$store.state.exception ='текст ошибки';
            //в constructorMainPage => if(ошибка существует -> выплюнуть ее в виде всплывающего уведомления
@@ -52,9 +53,11 @@
 
         //DATABASE FUNCTIONS
         postNewStation(){
+          console.log('post new station');
           axios.post('http://localhost:8081/api/station', this.station)
           .then(function (response) {
-            console.log(response);
+            this.$store.state.constructorState.stationId=response.data;
+            location.href=location.href;
           })
         }
       }

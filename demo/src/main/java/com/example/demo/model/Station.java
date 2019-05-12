@@ -17,6 +17,10 @@ public class Station {
     String name;
     String description;
 
+    public Long getId() {
+        return id;
+    }
+
     public String getName() {
         return name;
     }

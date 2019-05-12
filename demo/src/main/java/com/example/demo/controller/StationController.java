@@ -22,8 +22,9 @@ public class StationController {
 
     @PostMapping
     @CrossOrigin("*")
-    public void addStation(@RequestBody Station station) {
+    public Long addStation(@RequestBody Station station) {
         stationRepository.save(station);
+        return station.getId();
     }
 
 }

@@ -7,7 +7,7 @@
       <input type="text" id="add-new__input_version-short-name" class="add-new__input" name="name" required minlength="2" maxlength="50">
       <div class="add-new__label">Добавьте описание новой версии, если это необходимо</div>
       <textarea type="text" id="add-new__input_version-description" class="add-new__input add-new__input_description" name="name" required minlength="10"></textarea>
-      <router-link to="constructorMainPage" class="flex-row-center">
+      <router-link to="constructorVersionsPage" class="flex-row-center">
         <button class="button_medium" v-on:click="saveNewVersion">Сохранить</button>
       </router-link>
     </div>
@@ -16,6 +16,7 @@
 
 <script>
   import fieldsValidator from '../javascript/fieldsValidation.js';
+  const axios = require('axios');
   let fieldValidator =new fieldsValidator;
     export default {
         name: "addNewVersion",
@@ -26,7 +27,7 @@
           date: '',
           description:'',
           name:'',//краткое название станции
-          station: {},
+          station: '',
           id: ''
         }
       }
@@ -46,10 +47,12 @@
             console.log(now);
             this.version.creator = fio;
             this.version.date = now;
+            this.version.station = this.$store.state.constructorState.station;
             this.version.description=description;
             this.version.name = versionShortName;
             console.log(this.version);
             this.postNewVersion();
+            this.$store.state.constructorState.stationName=versionShortName;
             //меняем состояние шины данных
           }else {
             //this.$store.state.exception ='текст ошибки';
@@ -61,9 +64,12 @@
 
         //DATABASE FUNCTIONS
         postNewVersion(){
+          console.log(this.version);
           axios.post('http://localhost:8081/api/global_version', this.version)
             .then(function (response) {
-              console.log(response);
+              console.log(response.data);
+              this.$store.state.constructorState.versionId=response.data;
+              location.href=location.href;
             })
         }
       }

@@ -169,13 +169,11 @@
       },
       //метод который возвращает нам id для кнопок панели конкретного режима редактирования
       returnBtnClassForPallet:function (panelId) {
-        //на вход приходит path_pallet_btn, arrow_pallet_btn, traffic-light_pallet_btn, infrastructure_pallet_btn
-        //на выход должно быть toolbar_part_path_btn, toolbar_part_arrow_btn и т.д.
-
-        //выход может быть сформирован с помощью такой функции:
-        let type ='path'; // данный параметр должен быть вытащен из данных на входе
+        const ind = panelId.indexOf('_');
+        if (ind > 0) {
+          let type = panelId.substr(0,ind).trim();
         let className=`toolbar_part_${type}_btn`;
-        return className;
+        return className;}
       },
 
       //TOOLS FUNCTIONS

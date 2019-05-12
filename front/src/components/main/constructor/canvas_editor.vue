@@ -42,38 +42,186 @@
       methods:{
         //MOUSE
         iHandleMouseMove:function(event){
-
+          this.mouse.current = {
+            x: event.offsetX,
+            y: event.offsetY
+          };
+          if(this.$store.state.constructorState.editorState.editorMode.nameOfMode==='pathEditing'){
+            this.iHandleMouseMovePath(event);
+          }
+          else if(this.$store.state.constructorState.editorState.editorMode.nameOfMode==='arrowEditing'){
+            this.iHandleMouseMoveArrow(event);
+          }
+          else if(this.$store.state.constructorState.editorState.editorMode.nameOfMode==='traffic-lightEditing'){
+            this.iHandleMouseMoveTrafficLight(event);
+          }
+          else if(this.$store.state.constructorState.editorState.editorMode.nameOfMode==='infrastructureEditing'){
+            this.iHandleMouseMoveInfrastructure(event);
+          }
         },
         iHandleMouseDown:function (event){
+          console.log('iHandleMouseDown function');
+          console.log(this.$store.state.constructorState.editorState.editorMode.nameOfMode);
           if(this.$store.state.constructorState.editorState.editorMode.nameOfMode==='pathEditing'){
             this.iHandleMouseDownPath(event);
+          }
+          else if(this.$store.state.constructorState.editorState.editorMode.nameOfMode==='arrowEditing'){
+            this.iHandleMouseDownArrow(event);
+          }
+          else if(this.$store.state.constructorState.editorState.editorMode.nameOfMode==='traffic-lightEditing'){
+            this.iHandleMouseDownTrafficLight(event);
+          }
+          else if(this.$store.state.constructorState.editorState.editorMode.nameOfMode==='infrastructureEditing'){
+            this.iHandleMouseDownInfrastructure(event);
           }
         },
         iHandleMouseUp:function (event){
           if(this.$store.state.constructorState.editorState.editorMode.nameOfMode==='pathEditing'){
-            //запускаем метод, который обрабатывает панель путей
-            //path
+            this.iHandleMouseUpPath(event);
+          }
+          else if(this.$store.state.constructorState.editorState.editorMode.nameOfMode==='arrowEditing'){
+            this.iHandleMouseUpArrow(event);
+          }
+          else if(this.$store.state.constructorState.editorState.editorMode.nameOfMode==='traffic-lightEditing'){
+            this.iHandleMouseUpTrafficLight(event);
+          }
+          else if(this.$store.state.constructorState.editorState.editorMode.nameOfMode==='infrastructureEditing'){
+            this.iHandleMouseUpInfrastructure(event);
           }
         },
 
         //PATH FUNCTIONS
         iHandleMouseDownPath:function(event){
+          console.log('iHandleMouseDown Path function');
           //если мы хотим выделить путь
           if(this.$store.state.constructorState.editorState.editorMode.typeOfTool==="choose-path"){
-            //сюда надо перенести настройки пути (по выделению пути должно разворачиваться небольшое окно справа вверху с настройками)
-            //сюда надо
           }
           //если мы хотим нарисовать путь
           else if(this.$store.state.constructorState.editorState.editorMode.typeOfTool==="add-path"){
+            console.log('Я режим добавления путей');
 
+            console.log('Я добавил первые координаты пути в текущий путь');
           }
-          //если мы хотим нарисовать тупик
+          //
           else if(this.$store.state.constructorState.editorState.editorMode.typeOfTool==="deadlock"){
-
           }
-          //если мы хотим настроить путь
+          //
           else if(this.$store.state.constructorState.editorState.editorMode.typeOfTool==="path-settings"){
-
+          }
+        },
+        iHandleMouseUpPath:function(event){
+          console.log('iHandleMouseUP Path function');
+          //если мы хотим выделить путь
+          if(this.$store.state.constructorState.editorState.editorMode.typeOfTool==="choose-path"){
+          }
+          //если мы хотим нарисовать путь
+          else if(this.$store.state.constructorState.editorState.editorMode.typeOfTool==="add-path"){
+            console.log('Я режим добавления путей');
+            console.log('Я добавил вторые координаты в текущий путь');
+          }
+          //
+          else if(this.$store.state.constructorState.editorState.editorMode.typeOfTool==="deadlock"){
+          }
+          //
+          else if(this.$store.state.constructorState.editorState.editorMode.typeOfTool==="path-settings"){
+          }
+        },
+        iHandleMouseMovePath:function(event){
+          //если мы хотим выделить путь
+          if(this.$store.state.constructorState.editorState.editorMode.typeOfTool==="choose-path"){
+          }
+          //если мы хотим нарисовать путь
+          else if(this.$store.state.constructorState.editorState.editorMode.typeOfTool==="add-path"){
+          }
+          //
+          else if(this.$store.state.constructorState.editorState.editorMode.typeOfTool==="deadlock"){
+          }
+          //
+          else if(this.$store.state.constructorState.editorState.editorMode.typeOfTool==="path-settings"){
+          }
+        },
+        //ARROW FUNCTIONS
+        iHandleMouseDownArrow:function(event){
+          //если мы хотим выделить стрелку
+          if(this.$store.state.constructorState.editorState.editorMode.typeOfTool==="choose-arrow"){
+            //перенести сюда настройки и удаление
+          }
+          //если мы хотим добавить стрелку
+          else if(this.$store.state.constructorState.editorState.editorMode.typeOfTool==="add-arrow"){
+          }
+          //если мы хотим настроить стрелку
+          else if(this.$store.state.constructorState.editorState.editorMode.typeOfTool==="arrow-settings"){
+          }
+          //если мы хотим удалить стрелку
+          else if(this.$store.state.constructorState.editorState.editorMode.typeOfTool==="delete-arrow"){
+          }
+        },
+        iHandleMouseUpArrow:function(event){
+          //если мы хотим выделить стрелку
+          if(this.$store.state.constructorState.editorState.editorMode.typeOfTool==="choose-arrow"){
+            //перенести сюда настройки и удаление
+          }
+          //если мы хотим добавить стрелку
+          else if(this.$store.state.constructorState.editorState.editorMode.typeOfTool==="add-arrow"){
+          }
+          //если мы хотим настроить стрелку
+          else if(this.$store.state.constructorState.editorState.editorMode.typeOfTool==="arrow-settings"){
+          }
+          //если мы хотим удалить стрелку
+          else if(this.$store.state.constructorState.editorState.editorMode.typeOfTool==="delete-arrow"){
+          }
+        },
+        iHandleMouseMoveArrow:function(event){
+          //если мы хотим выделить стрелку
+          if(this.$store.state.constructorState.editorState.editorMode.typeOfTool==="choose-arrow"){
+            //перенести сюда настройки и удаление
+          }
+          //если мы хотим добавить стрелку
+          else if(this.$store.state.constructorState.editorState.editorMode.typeOfTool==="add-arrow"){
+          }
+          //если мы хотим настроить стрелку
+          else if(this.$store.state.constructorState.editorState.editorMode.typeOfTool==="arrow-settings"){
+          }
+          //если мы хотим удалить стрелку
+          else if(this.$store.state.constructorState.editorState.editorMode.typeOfTool==="delete-arrow"){
+          }
+        },
+        //TRAFFIC-LIGHT FUNCTIONS
+        iHandleMouseDownTrafficLight:function(event){
+          //если мы хотим выделить стрелку
+          if(this.$store.state.constructorState.editorState.editorMode.typeOfTool==="choose-arrow"){
+            //перенести сюда настройки и удаление
+          }
+        },
+        iHandleMouseUpTrafficLight:function(event){
+          //если мы хотим выделить стрелку
+          if(this.$store.state.constructorState.editorState.editorMode.typeOfTool==="choose-arrow"){
+            //перенести сюда настройки и удаление
+          }
+        },
+        iHandleMouseMoveTrafficLight:function(event){
+          //если мы хотим выделить стрелку
+          if(this.$store.state.constructorState.editorState.editorMode.typeOfTool==="choose-arrow"){
+            //перенести сюда настройки и удаление
+          }
+        },
+        //TRAFFIC-LIGHT FUNCTIONS
+        iHandleMouseDownInfrastructure:function(event){
+          //если мы хотим выделить стрелку
+          if(this.$store.state.constructorState.editorState.editorMode.typeOfTool==="choose-arrow"){
+            //перенести сюда настройки и удаление
+          }
+        },
+        iHandleMouseUpInfrastructure:function(event){
+          //если мы хотим выделить стрелку
+          if(this.$store.state.constructorState.editorState.editorMode.typeOfTool==="choose-arrow"){
+            //перенести сюда настройки и удаление
+          }
+        },
+        iHandleMouseMoveInfrastructure:function(event){
+          //если мы хотим выделить стрелку
+          if(this.$store.state.constructorState.editorState.editorMode.typeOfTool==="choose-arrow"){
+            //перенести сюда настройки и удаление
           }
         },
 
