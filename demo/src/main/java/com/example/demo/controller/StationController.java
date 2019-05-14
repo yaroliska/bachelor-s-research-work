@@ -27,4 +27,18 @@ public class StationController {
         return station.getId();
     }
 
+
+    @GetMapping
+    @RequestMapping("/delete")
+    @CrossOrigin("*")
+    public Long delete(Long id) {
+        try {
+            stationRepository.delete(id);
+            return id;
+        }
+        catch (Exception e) {
+            return Long.valueOf(0);
+        }
+    }
+
 }
